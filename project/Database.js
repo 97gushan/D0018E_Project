@@ -5,7 +5,7 @@ module.exports = {
     addUserToDB : function(){
         console.log("Adding user -- NOT DONE");
         
-    }, addProduct : function() {
+    }, addProductToDB : function() {
         console.log("Adding product -- NOT DONE");
 
     }
