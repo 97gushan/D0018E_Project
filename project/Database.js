@@ -16,8 +16,6 @@ module.exports = {
         console.log("Adding user -- NOT DONE");
         
     }, addProductToDB : function(name, price, inventoryAmount, description, category) {
-        console.log("Adding product -- NOT DONE");
-
         connection.connect(function(err) {
             if (err) throw err
             console.log('You are now connected...')
@@ -29,27 +27,31 @@ module.exports = {
                 if(err) throw err;
                 console.log("Product added");
             });
+
+            connection.end();
         });
+        
+    }, getProductFromDb : function() {
+        console.log("Adding product -- NOT DONE");
 
-          }, getProductFromDb : function() {
-                console.log("Adding product -- NOT DONE");
+        connection.connect(function(err) {
+            if (err) throw err
+            console.log('You are now connected...')
 
-                connection.connect(function(err) {
-                    if (err) throw err
-                    console.log('You are now connected...')
-
-                    var sql = "SELECT * FROM product"
-                    connection.query(sql, function(err, result){
-                        if(err) throw err;
-                        console.log(result[0].id)
-                        console.log(result[0].name)
-                        console.log(result[0].price)
-                        console.log(result[0].inventory)
-                        console.log(result[0].description)
-                        console.log(result[0].category)
-                        });
-                    });
-            }
+            var sql = "SELECT * FROM product"
+            connection.query(sql, function(err, result){
+                if(err) throw err;
+                console.log(result[0].id)
+                console.log(result[0].name)
+                console.log(result[0].price)
+                console.log(result[0].inventory)
+                console.log(result[0].description)
+                console.log(result[0].category)
+            });
+            connection.end();
+        });
+        
+    }
 
 };
 
