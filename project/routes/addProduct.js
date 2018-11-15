@@ -9,7 +9,11 @@ router.use(bodyparser.json());
 router.post('/', function(req, res, next) {
     console.log(req);
     console.log(req.body.produkt);
-    DB.addProductToDB(req.body.produkt, "100", "2", "Stuff", "things");
+    var product = req.body.product;
+    var price = req.body.price;
+    var amount = req.body.amount;
+    var description = req.body.description;
+    DB.addProductToDB(product, price, amount, description, "things");
     res.send('<h1>respond with a resource</h1>');
     
 });
