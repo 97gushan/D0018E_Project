@@ -5,7 +5,7 @@ var DB = require('../Database.js');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-    DB.addProductToDB();
+    DB.addProductToDB("thing", "100", "2", "Stuff", "things");
     res.send('<h1>respond with a resource</h1>');
 });
 
