@@ -9,9 +9,8 @@ router.use(bodyparser.json());
 router.post('/', function(req, res, next) {
     console.log(req);
     console.log(req.body.produkt);
-    DB.addUserToDB();
+    DB.addProductToDB("thing", "100", "2", "Stuff", "things");
     res.send('<h1>respond with a resource</h1>');
     
-});
 
 module.exports = router;
