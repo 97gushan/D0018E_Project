@@ -27,6 +27,7 @@ app.use('/users', usersRouter);
 app.use('/addUser', addUserRouter);
 app.use('/addProduct', addProductRouter);
 app.use('/adminPage', adminPageRouter);
+app.use('/getProductFromDb', getProductRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
