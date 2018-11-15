@@ -9,10 +9,10 @@ var connection = mysql.createConnection({
   database: 'D0018E'
 })
 
--*connection.connect(function(err) {
+/*connection.connect(function(err) {
   if (err) throw err
   console.log('You are now connected...')
-})-* 
+})*/ 
 
 module.exports = {
     addUserToDB : function(){
