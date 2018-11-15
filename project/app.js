@@ -9,6 +9,7 @@ var addUserRouter = require('./routes/addUser');
 var bodyParser = require('body-parser');
 var addProductRouter = require('./routes/addProduct');
 var adminPageRouter = require('./routes/adminPage');
+var getProductRouter = require('./routes/getProductFromDb');
 
 var app = express();
 

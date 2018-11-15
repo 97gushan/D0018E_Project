@@ -32,25 +32,25 @@ module.exports = {
         });
 
           }, getProductFromDb : function() {
-      console.log("Adding product -- NOT DONE");
+                console.log("Adding product -- NOT DONE");
 
-      connection.connect(function(err) {
-          if (err) throw err
-          console.log('You are now connected...')
+                connection.connect(function(err) {
+                    if (err) throw err
+                    console.log('You are now connected...')
 
-          var sql = "SELECT * FROM products"
-          connection.query(sql, function(err, result){
-              if(err) throw err;
-              console.log(results[0].id)
-              console.log(results[0].name)
-              console.log(results[0].price)
-              console.log(results[0].inventory)
-              console.log(results[0].description)
-              console.log(results[0].category)
-            });
-          });
-  };
+                    var sql = "SELECT * FROM product"
+                    connection.query(sql, function(err, result){
+                        if(err) throw err;
+                        console.log(result[0].id)
+                        console.log(result[0].name)
+                        console.log(result[0].price)
+                        console.log(result[0].inventory)
+                        console.log(result[0].description)
+                        console.log(result[0].category)
+                        });
+                    });
+            }
 
-
+};
 
 
