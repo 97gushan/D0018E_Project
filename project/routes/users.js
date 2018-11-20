@@ -10,4 +10,8 @@ router.get('/admin', function(req, res, next) {
   res.render('adminPanel', { title: 'Express' });
 });
 
+router.get('/register', function(req,res,next){
+  res.render('registerPanel');
+});
+
 module.exports = router;
