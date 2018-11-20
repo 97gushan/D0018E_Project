@@ -8,7 +8,6 @@ var usersRouter = require('./routes/users');
 var addUserRouter = require('./routes/addUser');
 var bodyParser = require('body-parser');
 var addProductRouter = require('./routes/addProduct');
-var adminPageRouter = require('./routes/adminPage');
 var getProductRouter = require('./routes/getProductFromDb');
 
 var app = express();
@@ -27,7 +26,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/addUser', addUserRouter);
 app.use('/addProduct', addProductRouter);
-app.use('/adminPage', adminPageRouter);
 app.use('/getProductFromDb', getProductRouter);
 
 // catch 404 and forward to error handler
