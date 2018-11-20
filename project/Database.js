@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 module.exports = {
     addUserToDB : function(){
         console.log("Adding user -- NOT DONE");
-        
+
     }, addProductToDB : function(name, price, inventoryAmount, description, category) {
         connection.connect(function(err) {
             if (err) throw err
@@ -27,10 +27,8 @@ module.exports = {
                 if(err) throw err;
                 console.log("Product added");
             });
-
-            connection.end();
         });
-        
+
     }, getProductFromDb : function() {
         console.log("Adding product -- NOT DONE");
 
@@ -48,11 +46,9 @@ module.exports = {
                 console.log(result[0].description)
                 console.log(result[0].category)
             });
-            connection.end();
+
         });
-        
+
     }
-
+    
 };
-
-
