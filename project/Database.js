@@ -14,6 +14,7 @@ var connection = mysql.createConnection({
 module.exports = {
     addUser : function(name, passHash){
         console.log("Adding user -- NOT DONE");
+<<<<<<< HEAD
         connection.connect(function(err){
             if (err) throw err
             console.log('You are now connected...')
@@ -27,6 +28,9 @@ module.exports = {
             });
         });
         
+=======
+
+>>>>>>> ffdea5f505f277fb3a397dd8774491e1135c7ac5
     }, addProductToDB : function(name, price, inventoryAmount, description, category) {
         connection.connect(function(err) {
             if (err) throw err
@@ -40,7 +44,7 @@ module.exports = {
                 console.log("Product added");
             });
         });
-        
+
     }, getProductFromDb : function() {
         console.log("Adding product -- NOT DONE");
 
@@ -58,10 +62,9 @@ module.exports = {
                 console.log(result[0].description)
                 console.log(result[0].category)
             });
+
         });
-        
+
     }
 
 };
-
-
