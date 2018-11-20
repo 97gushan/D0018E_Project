@@ -24,30 +24,20 @@
         <%= title %>
       </p>
     </div>
+  <div>
+    <p id="inputtext"> TEXT HERE </p>
+    <input type="text" id="inputname">
+    <button id="inputbutton">ADD</button>
+  </div>
 
+    <div class="productbox-container">
+      
+    <!--   PRODUCTS ARE ADDED AUTOMATICALLY HERE    -->
 
-    <div class="container">
-      <% for(var i = 1; i<30; i++) { %>
-
-      <div class="box">
-        <div>
-          <p>Product information
-            <%= i %>
-          </p>
-          <div>
-            <div>
-              <button type="button">View</button>
-              <button type="button">Edit</button>
-            </div>
-            <small>9 mins</small>
-          </div>
-        </div>
-      </div>
-
-      <% } %>
     </div>
   </div>
 
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <script src="/javascripts/script.js"></script>
 
 </body>
