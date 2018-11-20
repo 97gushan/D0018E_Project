@@ -27,8 +27,6 @@ module.exports = {
                 if(err) throw err;
                 console.log("Product added");
             });
-
-            connection.end();
         });
         
     }, getProductFromDb : function() {
@@ -48,7 +46,6 @@ module.exports = {
                 console.log(result[0].description)
                 console.log(result[0].category)
             });
-            connection.end();
         });
         
     }
