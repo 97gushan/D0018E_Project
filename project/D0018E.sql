@@ -33,7 +33,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `D0018E`.`user` (
   `username` VARCHAR(60) NOT NULL,
-  `passwordhash` VARCHAR(45) NOT NULL,
+  `passwordhash` VARCHAR(100) NOT NULL,
   `adminflag` TINYINT(1) NOT NULL,
   `rating` DOUBLE UNSIGNED NOT NULL,
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
