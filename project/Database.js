@@ -12,8 +12,20 @@ var connection = mysql.createConnection({
 
 
 module.exports = {
-    addUserToDB : function(){
+    addUser : function(name, passHash){
         console.log("Adding user -- NOT DONE");
+        connection.connect(function(err){
+            if (err) throw err
+            console.log('You are now connected...')
+
+            var sql = "INSERT INTO user (username, passwordhash, adminflag, rating) VALUES ?";
+            var values = [[name, passHash, 0, 0]];
+
+            connection.query(sql, [values], function(err, result){
+                if(err) throw err;
+                console.log("User added");
+            });
+        });
         
     }, addProductToDB : function(name, price, inventoryAmount, description, category) {
         connection.connect(function(err) {
