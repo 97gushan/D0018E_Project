@@ -25,7 +25,7 @@ module.exports = {
  
     }, loginUser : function(name, pass){
     
-        var sql = "SELECT passwordHash FROM user WHERE username = ?";
+        var sql = "SELECT passwordHash, id, adminFlag FROM user WHERE username = ?";
         var values = [[name]];
 
         connection.query(sql, [values], function(err, result){
@@ -37,7 +37,8 @@ module.exports = {
                 console.log("Checked");
 
                 if(res){
-                    // sessions stuff here
+                    session.userID = result[0].id;
+                    session.adminFlag = result[0].adminFlag;
                 }
             });
          
