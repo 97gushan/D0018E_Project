@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var router = express.Router();
 var DB = require('../Database.js');
 var bodyparser= require("body-parser");
@@ -20,14 +21,29 @@ router.post('/product/add', function(req, res, next) {
     
 });
 
+/* Add user to DB */
 router.post('/user/add', function(req, res, next) {
 
     var name = req.body.name;
     var pass = req.body.password;
     
-    bcrypt.hash(pass, 5, function(err, hash){
+    // Hash password
+    bcrypt.hash("pass", 1, function(err, hash){
         DB.addUser(name, hash, 0, 0);
     });
+    
+    res.send('<h1>respond with a resource</h1>');
+    
+});
+
+//Login user
+router.post('/user/login', function(req, res, next) {
+
+    var name = req.body.name;
+    var pass = req.body.password;
+    
+    DB.loginUser(name, pass);
+    
     
     res.send('<h1>respond with a resource</h1>');
     
