@@ -17,24 +17,6 @@ function stickyHeader() {
 
 $(document).ready(function(){
 
-  // Anonymous function to handle adding a product box
-  var productbox = (name, description, price) => {
-  
-    var baseText = `
-    <div class="box">
-      <div>
-        <h2>${name}</h2> 
-        <div> 
-          <div> 
-            <p>${description}</p>
-          </div>
-          <p>${price} kr</p>
-        </div>
-      </div>
-    </div> `
-
-  return baseText
-  };
 
   // TODO: Add database query for this instead of 
   // logging the value.
@@ -46,20 +28,56 @@ $(document).ready(function(){
 
   // Temporary adding of product.
   //    This is how we add the products
-  $("#inputbutton").click(function(){
-    $(".productbox-container").append(productbox($("#inputname").val(), "A generic product\u2122" ,10));
+  $("#getterbutton").click(function(){
+    
+    $.getJSON( "/api/ex/json", function(jsonfile) {
+      getProducts(jsonfile);
+    });
   });
 
 
 });
 
 
-function getProducts() {
 
-}
 
+
+// Anonymous function to handle adding a product box
+var productbox = (name, description, price) => {
+
+  var baseText = `
+  <div class="box">
+    <div>
+      <h2>${name}</h2> 
+      <div> 
+        <div> 
+          <p>${description}</p>
+        </div>
+        <p>${price} kr</p>
+      </div>
+    </div>
+  </div> `
+
+return baseText
+};
+
+// Product object
 var product = {
   name:"",
   description:"",
   price:""
 };
+
+
+function getProducts(file) {
+  console.log(file);
+  file.products.forEach(prod => {
+    addProduct(prod);
+  });
+
+}
+
+function addProduct(prod){
+  $(".productbox-container").append(productbox(prod.name , prod.description , prod.price));
+}
+
