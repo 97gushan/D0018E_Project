@@ -14,4 +14,8 @@ router.get('/register', function(req,res,next){
   res.render('registerPanel');
 });
 
+router.get('/login', function(req,res,next){
+  res.render('loginPanel');
+});
+
 module.exports = router;
