@@ -1,4 +1,4 @@
-console.log("Database.js");
+console.log("Database Connected");
 var mysql = require('mysql')
 var session = require('express-session');
 var bcrypt = require('bcrypt');
@@ -8,22 +8,30 @@ var connection = mysql.createConnection({
   user: 'root',
   port: '3306',
   password: 'password',
-  database: 'D0018E'
+  database: 'D0018E',
+  insecureAuth: true
 })
 
 
-
+// Functions in the DB class that is usable by other files
+// 
 module.exports = {
-    addUser : function(name, passHash){
+// 
+// ALL FUNCTIONS SHOULD RETURN SOMETHING
+// If status, see specific one at
+//  https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+
+    addUser : function(req, res, next,name, passHash){
         var sql = "INSERT INTO user (username, passwordhash, adminflag, rating) VALUES ?";
         var values = [[name, passHash, 0, 0]];
 
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
-            console.log("User added");
+            res.sendStatus(201);
         });
  
-    }, loginUser : function(name, pass){
+    }, loginUser : function(req, res, next,name, pass){
     
         var sql = "SELECT passwordHash, id, adminFlag FROM user WHERE username = ?";
         var values = [[name]];
@@ -41,38 +49,40 @@ module.exports = {
                     session.adminFlag = result[0].adminFlag;
                 }
             });
-         
+            res.sendStatus(200);
         });
 
     
         
-    },addProductToDB : function(name, price, inventoryAmount, description, category) {
+    },addProductToDB : function(req, res, next, name, price, inventoryAmount, description, category) {
 
         var sql = "INSERT INTO product (name, price, inventory, description, category) VALUES ?";
         var values = [[name, price,  inventoryAmount, description, category]];
 
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
-            console.log("Product added");
+            res.sendStatus(201);
+
         });
         
 
-    }, getProductFromDb : function() {
-        console.log("Adding product -- NOT DONE");
+    }, 
+    // GET PRODUCT FROM DB
+    // RETURNS A JSON FILE
+    getProductFromDb : function(req, res, next) {
 
+        // Use SQL wilfcard '%' to get everything that contains
+        //      the search string.
+        var value = "%" + req.query.query + "%";
+        
+        // Using LIKE parameter to get wildcards to work, se ref:
+        //      https://www.w3schools.com/sql/sql_wildcards.asp
+        var sql = "SELECT * FROM product WHERE name LIKE " + connection.escape(value);
 
-        var sql = "SELECT * FROM product"
-        connection.query(sql, function(err, result){
+        connection.query(sql, function(err, result) {
             if(err) throw err;
-            console.log(result[0].id)
-            console.log(result[0].name)
-            console.log(result[0].price)
-            console.log(result[0].inventory)
-            console.log(result[0].description)
-            console.log(result[0].category)
+            res.send(result);
         });
-
-        
 
     }
 
