@@ -1,9 +1,3 @@
--- MySQL Workbench Forward Engineering
-
--- -----------------------------------------------------
--- Schema D0018E
--- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema D0018E
 -- -----------------------------------------------------
@@ -67,3 +61,18 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`order_item` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`order_id`) REFERENCES D0018E.order (id),
   FOREIGN KEY (`product_id`) REFERENCES D0018E.product (id));
+
+-- -----------------------------------------------------
+-- Table `D0018E`.`shopping_basket`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `D0018E`.`shopping_basket` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `price` INT UNSIGNED NOT NULL,
+  `amount` INT UNSIGNED NOT NULL,
+  `user_id` INT UNSIGNED NOT NULL,
+  `product_id` INT UNIQUE NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES D0018E.user (id),
+  FOREIGN KEY (`product_id`) REFERENCES D0018E.product (id));
+
+
