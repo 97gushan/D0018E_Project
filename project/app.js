@@ -29,8 +29,8 @@ app.use('/api', apiRouter);
 app.use(session({
   cookieName: 'session',
   secret: 'piujhnefcvwasdlkjklvjlghvczxbf',
-  userID: '-1',
-  adminFlag: '0'
+  userID: -1,
+  adminFlag: 0
 
 }));
 

@@ -49,6 +49,13 @@ router.post('/user/login', function(req, res, next) {
     
 });
 
+router.get('/user/logout/', function(req,res,next){
+    //console.log("Kakor!")
+    //console.log(session.userID);
+    session.userID = -1;
+    //console.log(session.userID);
+    res.send('<h1> WWSAD </h1>');
+  });
 
 /* Get product from DB */
 router.get('/product/get/', function(req, res, next) {
