@@ -1,0 +1,10 @@
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Spik', 4, 2355, 'Spikar', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Hammare', 99, 35, 'Slår spikar', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Såg', 149, 12, 'Sågar trä', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Arbetsbyxor', 699, 4, 'Fräscha arbetsbyxor i högsta kvalité', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Bananer', 113, 8, 'Mat', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Apelsiner', 79, 5, 'Matig mat', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Äpplen', 82,7, 'Mer matig mat', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Nötblandning', 34, 29, 'Farlig mat', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Fruktblandning', 29, 18, 'Mindre farlig mat', 'none');
+INSERT INTO product (name, price, inventory, description, category) VALUES ('Glass', 45, 39, 'God mat', 'none');
