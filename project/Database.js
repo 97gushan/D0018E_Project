@@ -104,5 +104,31 @@ module.exports = {
                 if(err) throw err;
                 res.send(202);
             });
-  }
+
+    }, 
+    addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
+
+        var sql = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
+        var values = [[ price,  amount, userId, productId]];
+
+        connection.query(sql, [values], function(err, result){
+            if(err) throw err;
+            res.sendStatus(201);
+
+        });
+    },
+    // GET shopping basket FROM DB
+    // RETURNS A JSON FILE
+    getShoppingBasket : function(req, res, next, userID) {
+
+
+        var sql = "SELECT * FROM shopping_basket WHERE user_id = ?";
+        var value = [[userID]];
+
+        connection.query(sql, [value], function(err, result) {
+            if(err) throw err;
+            res.send(result);
+        });
+
+    },
 };
