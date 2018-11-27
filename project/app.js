@@ -30,8 +30,9 @@ app.use(session({
   cookieName: 'session',
   secret: 'piujhnefcvwasdlkjklvjlghvczxbf',
   userID: -1,
-  adminFlag: 0
-
+  adminFlag: 0,
+  resave: true,
+  saveUninitialized: true
 }));
 
 // catch 404 and forward to error handler
