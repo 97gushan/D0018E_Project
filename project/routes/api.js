@@ -2,7 +2,6 @@ var express = require('express');
 var session = require('express-session');
 var router = express.Router();
 var DB = require('../Database.js');
-var jsonParser = require("../JsonParser.js");
 var bodyparser= require("body-parser");
 var bcrypt = require('bcrypt');
 
