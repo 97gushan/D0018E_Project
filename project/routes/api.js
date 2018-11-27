@@ -2,7 +2,6 @@ var express = require('express');
 var session = require('express-session');
 var router = express.Router();
 var DB = require('../Database.js');
-var jsonParser = require("../JsonParser.js");
 var bodyparser= require("body-parser");
 var bcrypt = require('bcrypt');
 
@@ -23,7 +22,7 @@ router.post('/user/add', function(req, res, next) {
 
     var name = req.body.name;
     var pass = req.body.password;
-    
+
     // Hash password
     bcrypt.hash("pass", 1, function(err, hash){
         DB.addUser(req, res, next, name, hash, 0, 0);
@@ -35,10 +34,10 @@ router.post('/user/login', function(req, res, next) {
 
     var name = req.body.name;
     var pass = req.body.password;
-    
+
     DB.loginUser(req, res, next,name, pass);
-    
-    
+
+
 });
 
 router.get('/user/logout/', function(req,res,next){
@@ -52,9 +51,17 @@ router.get('/user/logout/', function(req,res,next){
 /* Get product from DB */
 router.get('/product/get/', function(req, res, next) {
 
-    
+
     DB.getProductFromDb(req, res, next);
-    
+
+});
+
+/* Delete product from DB */
+router.get('/product/delete/', function(req, res, next) {
+
+
+    DB.deleteProductFromDb(req, res, next);
+
 });
 
 module.exports = router;
