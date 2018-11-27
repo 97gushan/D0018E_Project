@@ -5,41 +5,38 @@
   <title>
     <%= title %>
   </title>
+  <link rel='stylesheet' href='/stylesheets/w3.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  
+
 </head>
 
 <body>
+  <%- include('header'); %>
 
-  <div class="banner" id="banner">
-    <h1>Knick Knacks</h1>
-    <!-- Logout button
-    <form action="/api/user/logout" method="GET"> 
-      <input type="submit" value="logout" />
-      </form>
-      --> 
-  </div>
 
-  <div class="content">
-    <div>
-      <h1>
-        <%= title %>
-      </h1>
-      <p>Welcome brbr to
-        <%= title %>
-      </p>
+  <div class="w3-display-container">
+    <div class="w3-container">
+      <div>
+        <h1>
+          <%= title %>
+        </h1>
+        <p>Welcome brbr to
+          <%= title %>
+        </p>
+      </div>
+
+      <div class="w3-twothird w3-display-topmiddle">
+        <input type="text" id="inputname" class="w3-input">
+      </div>
     </div>
-  <div>
-    <p id="inputtext"> TEXT HERE </p>
-    <input type="text" id="inputname">
   </div>
+  
+  <div id="productbox-container">
 
-    <div class="productbox-container">
-      
     <!--   PRODUCTS ARE ADDED AUTOMATICALLY HERE    -->
 
-    </div>
   </div>
+
 
   <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <script src="/javascripts/script.js"></script>

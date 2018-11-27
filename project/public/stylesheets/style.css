@@ -1,11 +1,57 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px;
+  background:rgb(236, 236, 236);
 }
 
 a {
   color: #00B7FF;
 }
+
+
+.sticky + .content {
+  padding-top: 10vh;
+}
+
+h1 {
+  margin: 0px;
+}
+
+#inputname {
+    height:6vh;
+    font-size:20pt;
+}
+
+.productbox-container {
+  width: 80vw;
+  margin: 4vh 10vw 0vw 10vw;
+}
+
+.box {
+  float: left;
+  min-width: 13em;
+  max-width: 20em;
+  height: 13em;
+  margin: 2%;
+  padding: 0.8em;
+  border: 0.1em solid black;
+  border-radius: 1em;
+
+}
+
+.box p {
+  width: 13em;
+}
+
+.box h2 {
+  text-align: center;
+  border-bottom: 0.1em solid black;
+}
+
+/* -------------------------------------*/
+/* -------------- BANNER  --------------*/
+/* -------------------------------------*/
+
 
 .banner {
   background-color: darkgray;
@@ -21,33 +67,36 @@ a {
   width: 100%;
 }
 
-.content{
+#accountPanel  {
+  position: fixed;
+  top: 2vh; right: 1vw;
+}
+
+
+.login .pane {
+  position: fixed;
+  top: 10vh; right: 0;
+  margin: auto;
+  width: 300px;
+  height: 250px;
+  z-index: 10;
   
+  background: #f0f0fd;
+  background: rgb(236, 236, 236);
+  padding: 22px 32px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -moz-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+  -box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
 }
 
-.sticky + .content {
-  padding-top: 10vh;
-}
-
-h1 {
-  margin: 0px;
+.accountButton {
+  border-radius: 50%;
+  background:rgb(236, 236, 236);
 
 }
 
-.productbox-container {
-  width: 80vw;
-  margin: 4vh 10vw 0vw 10vw;
 
 
-}
-
-.box {
-  float: left;
-  min-width: 10em;
-  width: 10%;
-  margin: 2%;
-  padding: 1em;
-  border: 0.1em solid black;
-  border-radius: 1em;
-
-}

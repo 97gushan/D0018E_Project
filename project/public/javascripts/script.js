@@ -18,6 +18,24 @@ $(document).ready(function(){
   $("#inputname").focus(function(){
     searchBarHandler();
   });
+  
+  $(".login").hide();
+  
+  $("#accountButton").click(function(){
+      $(".login").toggle();
+  });
+  
+  // Close if user clicks outside the box
+  $(document).mouseup(function(e) 
+  {
+      var container = $(".login");
+  
+      // If the target of the click isn't the container nor a descendant of the container
+      if (!container.is(e.target) && container.has(e.target).length === 0) 
+      {
+          container.hide();
+      }
+  });
 
 });
 
@@ -86,10 +104,11 @@ function getProducts() {
   
 }
 
+
 function addProducts(){
-  $(".productbox-container").empty();
+  $("#productbox-container").empty();
   products.forEach(prod => {
-    $(".productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price));
+    $("#productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price));
   })
 }
 
