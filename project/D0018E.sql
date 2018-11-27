@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`comment` (
   `product_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES D0018E.user(id),
-  FOREIGN KEY (`product_id`) REFERENCES D0018e.product(id));
+  FOREIGN KEY (`product_id`) REFERENCES D0018E.product(id));
 
 -- -----------------------------------------------------
 -- Table `D0018E`.`order`
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`shopping_basket` (
   `price` INT UNSIGNED NOT NULL,
   `amount` INT UNSIGNED NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
-  `product_id` INT UNIQUE NOT NULL,
+  `product_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES D0018E.user (id),
   FOREIGN KEY (`product_id`) REFERENCES D0018E.product (id));

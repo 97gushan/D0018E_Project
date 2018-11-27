@@ -37,7 +37,6 @@ router.post('/user/login', function(req, res, next) {
 
     DB.loginUser(req, res, next,name, pass);
 
-
 });
 
 router.get('/user/logout/', function(req,res,next){
@@ -61,6 +60,13 @@ router.get('/product/delete/', function(req, res, next) {
 
 
     DB.deleteProductFromDb(req, res, next);
+
+});
+
+/* Delete product from DB */
+router.post('/product/addToBasket/', function(req, res, next) {
+
+    DB.addToBasket(req, res, next);
 
 });
 
