@@ -40,16 +40,18 @@ module.exports = {
             if(err) throw err;
             
             // compare the  password
-            bcrypt.compare(pass, result[0].passwordHash, function(err, res){
-                console.log(res);
+            bcrypt.compare(pass, result[0].passwordHash, function(err, response){
+                console.log(response);
                 console.log("Checked");
 
-                if(res){
+                if(response){
                     session.userID = result[0].id;
                     session.adminFlag = result[0].adminFlag;
+                    
                 }
             });
             res.sendStatus(200);
+            
         });
 
     
