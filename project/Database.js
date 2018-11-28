@@ -49,13 +49,6 @@ module.exports = {
                 if(response){
                     session.userID = result[0].id;
                     session.adminFlag = result[0].adminFlag;
-<<<<<<< HEAD
-
-                }
-            });
-            res.sendStatus(200);
-
-=======
                     res.sendStatus(200);
                 }
                 else{
@@ -64,9 +57,8 @@ module.exports = {
             });
 
 
-            
-            
->>>>>>> fae5b455c66a7597a8b4ed98eb58c385ba7d7a43
+
+
         });
 
 
