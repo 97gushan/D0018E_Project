@@ -24,7 +24,7 @@ router.post('/user/add', function(req, res, next) {
     var pass = req.body.password;
 
     // Hash password
-    bcrypt.hash("pass", 1, function(err, hash){
+    bcrypt.hash(pass, 1, function(err, hash){
         DB.addUser(req, res, next, name, hash, 0, 0);
     });
 });
