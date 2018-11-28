@@ -24,6 +24,24 @@ $(document).ready(function(){
       }
   });
 
+  // Login function
+  $("#loginbutton").click(function(){
+    var uname = $("#loginusername").val();
+    var pw = $("#loginpassword").val();
+
+    $.post("/api/user/login" , {username: uname, password: pw} , function(){})
+    .done(function(res) {
+      location.reload();
+    })
+    .fail(function(res) {
+      $("#loginbutton").after("<p style='color:red'> Login Failed. Please try again. </p>");
+    });
+  });
+
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+
 });
 
 function searchBarHandler(){
@@ -49,7 +67,6 @@ function searchBarHandler(){
 
 // Anonymous function to handle adding a product box
 var productbox = (id, name, description, price, inventory) => {
-
   var baseText = `
   <div class="box" id="productBoxnr${id}">
     <div>
@@ -68,7 +85,7 @@ var productbox = (id, name, description, price, inventory) => {
     </div>
   </div> `
 
-return baseText
+return baseText;
 };
 
 // Product object
@@ -89,6 +106,7 @@ var products = [];
 function getProducts() {
   $.getJSON("/api/product/get?query=" + $("#inputname").val(), function(jsonfile) {
     products = [];
+    
     jsonfile.forEach(prod => {
       products.push(new product(prod.id, prod.name, prod.description, prod.price, prod.inventory));
     });
@@ -101,7 +119,7 @@ function getProducts() {
 function addProducts(){
   $("#productbox-container").empty();
   products.forEach(prod => {
-    $(".productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price, prod.inventory));
+    $("#productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price, prod.inventory));
   })
 }
 
@@ -110,9 +128,7 @@ function addProductToBasket(price, amount, product_id){
 }
 
 
-
-
-function openPage(pageName) {
+function openPage(pageName, elmnt) {
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -129,7 +145,10 @@ function openPage(pageName) {
   // Show the specific tab content
   document.getElementById(pageName).style.display = "block";
 
+  // Add the specific color to the button used to open the tab content
+  elmnt.style.backgroundColor = $(document.body).css("background-color");
+  console.log( $(document.body).css("background-color"));
+
 }
 
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+

@@ -11,17 +11,17 @@
 <div class="login">
 <footer></footer>
   <div class="pane">
-    <form class="w3-container" method="post" action="/api/user/login/">
+    <div class="w3-container">
       <div>
         <label class="">Username:</label>
-        <input class = "w3-input" type="text" name="name" required maxlength="150">
+        <input class = "w3-input" type="text" id="loginusername" required maxlength="150">
       </div>
       <div>
         <label >Password:</label>
-        <input class = "w3-input" type="password" name="password" required>
+        <input class = "w3-input" type="password" id="loginpassword" required>
       </div>
-      <button type="submit" value="Login">Login</button><br>
-    </form>
+      <button id="loginbutton">Login</button><br>
+    </div>
   </div>
 </div>
 
@@ -33,9 +33,9 @@
 
 <div id="tabPanel">
   <div id="tabButtonPanel">
-    <button onclick="openPage('Home')" class="tablink" id="defaultOpen"> HOME </button>
-    <button onclick="openPage('User')" class="tablink"> USER </button>
-    <button onclick="openPage('Admin')" class="tablink"> ADMIN </button>
+    <button onclick="openPage('Home', this)" class="tablink" id="defaultOpen"> HOME </button>
+    <button onclick="openPage('User', this)" class="tablink"> USER </button>
+    <button onclick="openPage('Admin', this)" class="tablink"> ADMIN </button>
   </div>
 </div>
 

@@ -30,7 +30,8 @@ router.post('/user/add', function(req, res, next) {
 //Login user
 router.post('/user/login', function(req, res, next) {
 
-    var name = req.body.name;
+    
+    var name = req.body.username;
     var pass = req.body.password;
 
     DB.loginUser(req, res, next,name, pass);

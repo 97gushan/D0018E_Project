@@ -11,7 +11,7 @@ a {
 
 
 .sticky + .content {
-  padding-top: 10vh;
+  padding-top: 14vh;
 }
 
 h1 {
@@ -59,7 +59,7 @@ h1 {
   border: 0px;
   margin: 0px 0px 10px 0px;
   width: 100vw;
-  height: 10vh;  
+  height: 14vh;  
 }
 
 .sticky {
@@ -82,7 +82,7 @@ h1 {
 
 #tabPanel  {
   position: absolute;
-  top: 7vh; left: 0vw;
+  bottom: 0vh; left: 0vw;
   width: 100vw;
   height: 3vh;
 }
@@ -91,6 +91,7 @@ h1 {
 #tabButtonPanel {
   position: absolute;
   left: 1vw;
+  bottom: 0;
 }
 
 
@@ -123,5 +124,21 @@ h1 {
 .tabcontent {
   display: none;
   padding: 0px;
-  height: 100vw;
+}
+
+.tablink {
+  background-color: darkgray;
+  color: black;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 17px;
+  width: 25vw;
+  height: 4vh;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.tablink:hover {
+  background-color: #777;
 }
