@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 
   $("#inputname").focus(function(){
-    //searchBarHandler();
+    searchBarHandler();
   });
   
   $(".login").hide();
