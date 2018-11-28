@@ -6,9 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var bodyParser = require('body-parser');
 var apiRouter = require('./routes/api');
-var bcrypt = require('bcrypt');
 
 var app = express();
 
@@ -22,18 +20,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api', apiRouter);
-
 app.use(session({
   cookieName: 'session',
   secret: 'piujhnefcvwasdlkjklvjlghvczxbf',
-  userID: -1,
   adminFlag: 0,
   resave: true,
   saveUninitialized: true
 }));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/api', apiRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

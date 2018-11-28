@@ -1,4 +1,3 @@
-console.log("Database Connected");
 var mysql = require('mysql')
 var session = require('express-session');
 var bcrypt = require('bcrypt');
@@ -12,6 +11,7 @@ var connection = mysql.createConnection({
   insecureAuth: true
 })
 
+var ses;
 
 // Functions in the DB class that is usable by other files
 //
@@ -36,18 +36,28 @@ module.exports = {
         var sql = "SELECT passwordHash, id, adminFlag FROM user WHERE username = ?";
         var values = [[name]];
 
+
+        ses = req.session;
+
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
 
-            if(!result[0].passwordHash)
-                res.sendStatus(401);
+            // Errorcheck if user exists
+            if(typeof result == 'undefined' || result[0] == null)
+                return res.sendStatus(401);
+            
+                
+
 
             // compare the  password
             bcrypt.compare(pass, result[0].passwordHash, function(err, response){
 
                 if(response){
-                    session.userID = result[0].id;
-                    session.adminFlag = result[0].adminFlag;
+
+                    ses.username = name;
+                    ses.userID = result[0].id;
+                    ses.adminFlag = result[0].adminFlag;
+
                     res.sendStatus(200);
                 }
                 else{
