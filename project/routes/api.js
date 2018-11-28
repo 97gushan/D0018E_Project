@@ -3,6 +3,7 @@ var session = require('express-session');
 var router = express.Router();
 var DB = require('../Database.js');
 var bcrypt = require('bcrypt');
+var session = require('express-session');
 
 
 /* Add product to DB */
@@ -57,11 +58,15 @@ router.get('/product/delete/', function(req, res, next) {
 
 });
 
-/* Delete product from DB */
+/* Add product to table shopping_basket */
 router.post('/product/addToBasket/', function(req, res, next) {
-
-    DB.addToBasket(req, res, next);
-
+    var price = parseInt(req.body.price);
+    var amount = parseInt(req.body.amount);
+    var product_id = parseInt(req.body.product_id);
+    var user_id = session.userID;
+    console.log('hejhej' + session.userID);
+    DB.addToShoppingBasket(req, res, next, price, amount, user_id, product_id);
 });
+
 
 module.exports = router;

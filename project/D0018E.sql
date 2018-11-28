@@ -73,6 +73,4 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`shopping_basket` (
   `product_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES D0018E.user (id),
-  FOREIGN KEY (`product_id`) REFERENCES D0018E.product (id));
-
-
+FOREIGN KEY (`product_id`) REFERENCES D0018E.product (id));

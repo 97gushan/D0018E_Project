@@ -1,27 +1,22 @@
 
+window.onscroll = function() {stickyHeader()};
+
+var header = document.getElementById("banner");
+var sticky = header.offsetTop;
+
+function stickyHeader() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
 $(document).ready(function(){
 
 
   $("#inputname").focus(function(){
     searchBarHandler();
-  });
-
-  $(".login").hide();
-
-  $("#accountButton").click(function(){
-      $(".login").toggle();
-  });
-
-  // Close if user clicks outside the box
-  $(document).mouseup(function(e)
-  {
-      var container = $(".login");
-
-      // If the target of the click isn't the container nor a descendant of the container
-      if (!container.is(e.target) && container.has(e.target).length === 0)
-      {
-          container.hide();
-      }
   });
 
 });
@@ -97,9 +92,8 @@ function getProducts() {
 
 }
 
-
 function addProducts(){
-  $("#productbox-container").empty();
+  $(".productbox-container").empty();
   products.forEach(prod => {
     $(".productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price, prod.inventory));
   })
@@ -108,28 +102,3 @@ function addProducts(){
 function addProductToBasket(price, amount, product_id){
   $.post("/api/product/addToBasket/" ,{price: price, amount: 1,  product_id: product_id});
 }
-
-
-
-
-function openPage(pageName) {
-  // Hide all elements with class="tabcontent" by default */
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-  }
-
-  // Remove the background color of all tablinks/buttons
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].style.backgroundColor = "";
-  }
-
-  // Show the specific tab content
-  document.getElementById(pageName).style.display = "block";
-
-}
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();

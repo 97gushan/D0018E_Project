@@ -2,6 +2,7 @@ var mysql = require('mysql')
 var session = require('express-session');
 var bcrypt = require('bcrypt');
 
+
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -66,8 +67,8 @@ module.exports = {
             });
 
 
-            
-            
+
+
         });
 
 
@@ -121,11 +122,11 @@ module.exports = {
                 res.send(202);
             });
 
-    }, 
+    },
     addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
 
         var sql = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
-        var values = [[ price,  amount, userId, productId]];
+        var values = [[price,amount,userId,productId]];
 
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
