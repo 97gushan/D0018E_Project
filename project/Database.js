@@ -40,19 +40,33 @@ module.exports = {
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
 
+            if(!result[0].passwordHash)
+                res.sendStatus(401);
+
             // compare the  password
             bcrypt.compare(pass, result[0].passwordHash, function(err, response){
-                console.log(response);
-                console.log("Checked");
 
                 if(response){
                     session.userID = result[0].id;
                     session.adminFlag = result[0].adminFlag;
+<<<<<<< HEAD
 
                 }
             });
             res.sendStatus(200);
 
+=======
+                    res.sendStatus(200);
+                }
+                else{
+                    res.sendStatus(401);
+                }
+            });
+
+
+            
+            
+>>>>>>> fae5b455c66a7597a8b4ed98eb58c385ba7d7a43
         });
 
 
@@ -95,7 +109,7 @@ module.exports = {
 
             // Use SQL wilfcard '%' to get everything that contains
             //      the search string.
-            var value = "%" + req.query.query + "%";
+            var value = req.query.query;
 
             // Using LIKE parameter to get wildcards to work, se ref:
             //      https://www.w3schools.com/sql/sql_wildcards.asp

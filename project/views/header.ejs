@@ -1,0 +1,42 @@
+<div class="banner"></div>
+<div class="banner sticky" id="banner">
+<h1>Knick Knacks</h1>
+<!-- Logout button
+<form action="/api/user/logout" method="GET"> 
+  <input type="submit" value="logout" />
+  </form>
+  -->
+
+
+<div class="login">
+<footer></footer>
+  <div class="pane">
+    <form class="w3-container" method="post" action="/api/user/login/">
+      <div>
+        <label class="">Username:</label>
+        <input class = "w3-input" type="text" name="name" required maxlength="150">
+      </div>
+      <div>
+        <label >Password:</label>
+        <input class = "w3-input" type="password" name="password" required>
+      </div>
+      <button type="submit" value="Login">Login</button><br>
+    </form>
+  </div>
+</div>
+
+
+<div id="accountPanel">
+    <input type="image" src="/images/shoppingcart.png"  id="cartButton"/>
+    <input type="image" src="/images/def_userimg.png" id="accountButton"/>
+</div>
+
+<div id="tabPanel">
+  <div id="tabButtonPanel">
+    <button onclick="openPage('Home')" class="tablink" id="defaultOpen"> HOME </button>
+    <button onclick="openPage('User')" class="tablink"> USER </button>
+    <button onclick="openPage('Admin')" class="tablink"> ADMIN </button>
+  </div>
+</div>
+
+</div>
