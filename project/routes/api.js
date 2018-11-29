@@ -64,9 +64,13 @@ router.post('/product/addToBasket/', function(req, res, next) {
     var price = parseInt(req.body.price);
     var amount = parseInt(req.body.amount);
     var product_id = parseInt(req.body.product_id);
-    var user_id = session.userID;
-    console.log('hejhej' + session.userID);
-    DB.addToShoppingBasket(req, res, next, price, amount, user_id, product_id);
+
+    if(req.session.userID){
+        var user_id = req.session.userID;
+        DB.addToShoppingBasket(req, res, next, price, amount, user_id, product_id);
+    }else{
+        res.sendStatus(403);
+    }
 });
 
 

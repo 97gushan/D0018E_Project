@@ -53,7 +53,6 @@ module.exports = {
             bcrypt.compare(pass, result[0].passwordHash, function(err, response){
 
                 if(response){
-
                     ses.username = name;
                     ses.userID = result[0].id;
                     ses.adminFlag = result[0].adminFlag;
