@@ -22,13 +22,17 @@ module.exports = {
 //  https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
 
-    addUser : function(req, res, next,name, passHash){
+    addUser : function(req, res, next, passHash){
+
+        var name = req.body.name;
+        var admin = req.body.admin ? 1 : 0;
+
         var sql = "INSERT INTO user (username, passwordhash, adminflag, rating) VALUES ?";
-        var values = [[name, passHash, 0, 0]];
+        var values = [[name, passHash, admin , 0]];
 
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
-            res.sendStatus(201);
+            res.redirect('/');
         });
 
     }, loginUser : function(req, res, next,name, pass){

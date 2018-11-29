@@ -8,10 +8,15 @@
    
      <form action="/api/user/add" method="POST"> 
       Register user:<br>
+      Username:
       <input type="text" name="name" id="name" value="">
       <br>
+      Password
       <input type="password" name="password" id="password" value="">
       <br>
+      Admin:
+      <input type="radio" name="admin" value="false" checked> False
+      <input type="radio" name="admin" value="true"> True<br>
       <input type="submit" value="submit" />
       <br>
       </form> 

@@ -95,7 +95,7 @@ h1 {
 }
 
 
-.login .pane {
+.loginWindow .pane {
   position: absolute;
   top: 10vh; right: 0;
   margin: auto;
@@ -112,6 +112,14 @@ h1 {
   -moz-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
   -webkit-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
   -box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+}
+
+#loginbutton {
+  display:inline;
+}
+
+#registerbutton {
+  display:inline;
 }
 
 

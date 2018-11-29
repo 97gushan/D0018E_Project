@@ -8,10 +8,15 @@
   -->
 
 
-<div class="login">
-<footer></footer>
+<div class="loginWindow">
   <div class="pane">
     <div class="w3-container">
+      <% if (autheticated) { %>
+        <div>
+          <h2>Hello <%= Username %></h2>
+        </div>
+          <button id="logoutbutton">Logout</button><br>
+      <% } else {%>
       <div>
         <label class="">Username:</label>
         <input class = "w3-input" type="text" id="loginusername" required maxlength="150">
@@ -20,22 +25,32 @@
         <label >Password:</label>
         <input class = "w3-input" type="password" id="loginpassword" required>
       </div>
-      <button id="loginbutton">Login</button><br>
+        <button id="loginbutton">Login</button>
+        <button id="registerbutton">Register</button><br>
+      <% }%>
     </div>
   </div>
 </div>
 
 
 <div id="accountPanel">
-    <input type="image" src="/images/shoppingcart.png"  id="cartButton"/>
-    <input type="image" src="/images/def_userimg.png" id="accountButton"/>
+<% if (autheticated) { %>
+  <input type="image" src="/images/shoppingcart.png"  id="cartButton"/>
+<% }%>
+  <input type="image" src="/images/def_userimg.png" id="accountButton"/>
 </div>
 
 <div id="tabPanel">
   <div id="tabButtonPanel">
     <button onclick="openPage('Home', this)" class="tablink" id="defaultOpen"> HOME </button>
-    <button onclick="openPage('User', this)" class="tablink"> USER </button>
-    <button onclick="openPage('Admin', this)" class="tablink"> ADMIN </button>
+
+    <% if (autheticated) { %>
+      <button onclick="openPage('User', this)" class="tablink"> USER </button>
+    <% } %>
+
+    <% if (admin) { %>
+      <button onclick="openPage('Admin', this)" class="tablink"> ADMIN </button>
+    <% } %>
   </div>
 </div>
 

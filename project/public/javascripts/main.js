@@ -6,16 +6,16 @@ $(document).ready(function(){
     searchBarHandler();
   });
 
-  $(".login").hide();
+  $(".loginWindow").hide();
 
   $("#accountButton").click(function(){
-      $(".login").toggle();
+      $(".loginWindow").toggle();
   });
 
   // Close if user clicks outside the box
   $(document).mouseup(function(e)
   {
-      var container = $(".login");
+      var container = $(".loginWindow");
 
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0)
@@ -34,8 +34,20 @@ $(document).ready(function(){
       location.reload();
     })
     .fail(function(res) {
-      $("#loginbutton").after("<p style='color:red'> Login Failed. Please try again. </p>");
+      $("#registerbutton").after("<p style='color:red'> Login Failed. Please try again. </p>");
     });
+  });
+
+
+
+  // Logout function
+  $("#logoutbutton").click(function(){
+    location.href = '/api/user/logout/';
+  });
+
+  // Register function
+  $("#registerbutton").click(function(){
+    location.href = '/users/register';
   });
 
 
@@ -147,8 +159,6 @@ function openPage(pageName, elmnt) {
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = $(document.body).css("background-color");
-  console.log( $(document.body).css("background-color"));
-
 }
 
 

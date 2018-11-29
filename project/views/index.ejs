@@ -3,7 +3,7 @@
 
 <head>
   <title>
-    <%= title %>
+    Webshop
   </title>
   <link rel='stylesheet' href='/stylesheets/w3.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -17,13 +17,17 @@
   <%- include('home'); %>
   </div>
 
+  <% if (autheticated) { %>
   <div id="User" class="tabcontent">
 
   </div>
-
+  <%} %>
+  
+  <% if (admin) { %>
   <div id="Admin" class="tabcontent">
       <%- include('adminPanel'); %>
   </div>
+  <%} %>
 
   <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <script src="/javascripts/main.js"></script>

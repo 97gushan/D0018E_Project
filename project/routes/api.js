@@ -1,9 +1,7 @@
 var express = require('express');
-var session = require('express-session');
 var router = express.Router();
 var DB = require('../Database.js');
 var bcrypt = require('bcrypt');
-var session = require('express-session');
 
 
 /* Add product to DB */
@@ -18,12 +16,11 @@ router.post('/product/add', function(req, res, next) {
 /* Add user to DB */
 router.post('/user/add', function(req, res, next) {
 
-    var name = req.body.name;
     var pass = req.body.password;
 
     // Hash password
     bcrypt.hash(pass, 1, function(err, hash){
-        DB.addUser(req, res, next, name, hash, 0, 0);
+        DB.addUser(req, res, next, hash, 0, 0);
     });
 });
 
@@ -39,8 +36,8 @@ router.post('/user/login', function(req, res, next) {
 });
 
 router.get('/user/logout/', function(req,res,next){
-    delete req.session;
-    res.send('<h1> WWSAD </h1>');
+    req.session.destroy();
+    res.redirect('/');
   });
 
 /* Get product from DB */
