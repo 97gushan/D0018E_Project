@@ -137,7 +137,6 @@ var productbox = (id, name, description, price, inventory) => {
       </div>
       <div>
         <p>${inventory} st</p>
-        <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button>
       </div>
 
     </div>
