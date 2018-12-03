@@ -13,15 +13,25 @@ $(document).ready(function(){
   });
 
   // Close if user clicks outside the box
-  $(document).mouseup(function(e)
+  $(document).on("mouseup", function(e)
   {
-      var container = $(".loginWindow");
+      var container = $(".loginWindow"); 
 
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0)
       {
           container.hide();
       }
+
+      container = $("#productWindow"); 
+
+      // If the target of the click isn't the container nor a descendant of the container
+      if (!container.is(e.target) && container.has(e.target).length === 0)
+      {
+          container.remove();
+      }
+
+
   });
 
   // Login function
@@ -54,7 +64,22 @@ $(document).ready(function(){
   // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();
 
+
+  $("#productbox-container").on("click", ".box", function(){
+    var thisID = $(this).attr("id");
+
+    var pid = products.find(function(e){
+      if("productBoxnr" + e.id == thisID)
+        return e;
+    });
+    
+    $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
+  });
+
+
+
 });
+
 
 function searchBarHandler(){
   var writetime = 600;
@@ -73,7 +98,28 @@ function searchBarHandler(){
 
 }
 
+// Anonymous function to handle adding a product box
+var productwindow = (id, name, description, price, inventory) => {
+  var baseText = `
+  <div id="productWindow" class="pane">
+    <div>
+      <h2>${name}</h2>
+      <div>
+        <div>
+          <p>${description}</p>
+        </div>
+        <p>${price} kr</p>
+      </div>
+      <div>
+        <p>${inventory} st</p>
+        <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button>
+      </div>
 
+    </div>
+  </div> `
+
+return baseText;
+};
 
 
 
