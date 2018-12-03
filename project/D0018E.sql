@@ -30,8 +30,9 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`user` (
 -- -----------------------------------------------------
 -- Table `D0018E`.`comment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `D0018E`.`comment` (
+CREATE TABLE IF NOT EXISTS `D0018E`.`review` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `rating` INT UNSIGNED NOT NULL,
   `comment` TEXT NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
   `product_id` INT UNSIGNED NOT NULL,
