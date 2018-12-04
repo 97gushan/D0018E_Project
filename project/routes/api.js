@@ -27,7 +27,7 @@ router.post('/user/add', function(req, res, next) {
 //Login user
 router.post('/user/login', function(req, res, next) {
 
-    
+
     var name = req.body.username;
     var pass = req.body.password;
 
@@ -68,6 +68,12 @@ router.post('/product/addToBasket/', function(req, res, next) {
     }else{
         res.sendStatus(403);
     }
+});
+
+router.get('/product/getShoppingBasket', function(req, res, next) {
+
+  DB.getShoppingBasket(req, res, next);
+
 });
 
 /* Get the reviews for a specific item from the database */

@@ -32,7 +32,7 @@ h1 {
   border: 0px;
   margin: 0px 0px 10px 0px;
   width: 100vw;
-  height: 14vh;  
+  height: 14vh;
 }
 
 .sticky {
@@ -136,6 +136,11 @@ h1 {
 }
 
 .productbox-container {
+width: 80vw;
+margin: 4vh 10vw 0vw 10vw;
+}
+
+.shoppingbasketbox-container {
 width: 80vw;
 margin: 4vh 10vw 0vw 10vw;
 }

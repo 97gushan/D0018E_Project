@@ -51,8 +51,8 @@ module.exports = {
             // Errorcheck if user exists
             if(typeof result == 'undefined' || result[0] == null)
                 return res.sendStatus(401);
-            
-                
+
+
 
 
             // compare the  password
@@ -71,8 +71,8 @@ module.exports = {
             });
 
 
-            
-            
+
+
         });
 
 
@@ -127,7 +127,7 @@ module.exports = {
                 res.send(202);
             });
 
-    }, 
+    },
     addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
 
         var sql = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
@@ -141,10 +141,11 @@ module.exports = {
     },
     // GET shopping basket FROM DB
     // RETURNS A JSON FILE
-    getShoppingBasket : function(req, res, next, userID) {
+    getShoppingBasket : function(req, res, next) {
 
 
         var sql = "SELECT * FROM shopping_basket WHERE user_id = ?";
+        var userID = req.session.userID;
         var value = [[userID]];
 
         connection.query(sql, [value], function(err, result) {
