@@ -221,7 +221,6 @@ function placeOrder(){
 
 function getShoppingBasket() {
   $.getJSON("/api/product/getShoppingBasket", function(jsonfile){
-    console.log(jsonfile);
     shoppingbasket = [];
     jsonfile.forEach(itemInBasket => {
       shoppingbasket.push(new shopping_basket(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
@@ -254,7 +253,6 @@ function openPage(pageName, elmnt) {
       tablinks[i].style.backgroundColor = "";
   }
     if(pageName == 'Shopping'){
-      console.log("Hej Hej!")
       getShoppingBasket();
     }
 
