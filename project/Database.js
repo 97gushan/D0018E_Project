@@ -25,6 +25,8 @@ module.exports = {
     addUser : function(req, res, next, passHash){
 
         var name = req.body.name;
+
+        // TODO: fix admin registration
         var admin = req.body.admin ? 1 : 0;
 
         var sql = "INSERT INTO user (username, passwordhash, adminflag, rating) VALUES ?";
@@ -98,7 +100,7 @@ module.exports = {
 
         // Using LIKE parameter to get wildcards to work, se ref:
         //      https://www.w3schools.com/sql/sql_wildcards.asp
-        var sql = "SELECT * FROM product WHERE name LIKE " + connection.escape(value);
+        var sql = "SELECT * FROM product WHERE name LIKE " + connection.escape(value) + "AND available=1";
 
         connection.query(sql, function(err, result) {
             if(err) throw err;
@@ -117,7 +119,8 @@ module.exports = {
 
             // Using LIKE parameter to get wildcards to work, se ref:
             //      https://www.w3schools.com/sql/sql_wildcards.asp
-            var sql = "DELETE FROM product WHERE name LIKE " + connection.escape(value);
+
+            var sql = "UPDATE product SET available = 0 WHERE name LIKE " + connection.escape(value);
 
             connection.query(sql, function(err, result) {
                 if(err) throw err;
@@ -150,4 +153,17 @@ module.exports = {
         });
 
     },
+    getReviewsForItem : function(req, res, next){
+
+
+        var sql = "SELECT * FROM review WHERE product_id = ?";
+        var value = [[userID]];
+
+        connection.query(sql, [value], function(err, result) {
+            if(err) throw err;
+            res.send(result);
+        });
+
+        res.sendStatus(200);
+    }
 };
