@@ -32,12 +32,11 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`user` (
 -- Table `D0018E`.`review`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `D0018E`.`review` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `rating` INT UNSIGNED NOT NULL,
-  `comment` TEXT NOT NULL,
+  `rating` INT UNSIGNED,
+  `comment` TEXT,
   `user_id` INT UNSIGNED NOT NULL,
   `product_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`user_id`, `product_id`),
   FOREIGN KEY (`user_id`) REFERENCES D0018E.user(id),
   FOREIGN KEY (`product_id`) REFERENCES D0018E.product(id));
 

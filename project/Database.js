@@ -153,17 +153,53 @@ module.exports = {
         });
 
     },
+    // Get reviews and ratings from database for a specific product
     getReviewsForItem : function(req, res, next){
 
+        var prodID = parseInt(req.query.query);
 
-        var sql = "SELECT * FROM review WHERE product_id = ?";
-        var value = [[userID]];
+        var sql = "SELECT rating, comment, user_id FROM review WHERE product_id = ?";
+        var value = [[prodID]];
 
         connection.query(sql, [value], function(err, result) {
             if(err) throw err;
             res.send(result);
         });
+    },
+    // Add a new review and rating for a product
+    addReviewToItem : function(req, res, next){
+        ses = req.session;
 
-        res.sendStatus(200);
-    }
+        var rating = null;
+        var comment = null;
+
+        var userID = ses.userID;
+        var productID = req.body.product_id;
+        var sql;
+        var value;
+
+        if(req.body.rating){
+            rating = req.body.rating;
+            value = [[rating, userID, productID]];
+            sql = "INSERT INTO review (rating, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE rating = " + connection.escape(rating);
+        }
+
+        if(req.body.comment){
+            comment = req.body.comment;
+            value = [[comment, userID, productID]];
+            sql = "INSERT INTO review (comment, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE comment = " + connection.escape(comment);
+        }
+
+
+        
+        
+
+        connection.query(sql, [value], function(err, result) {
+            if(err) {
+
+                throw err;}
+            return res.sendStatus(200);
+        });
+
+    },
 };
