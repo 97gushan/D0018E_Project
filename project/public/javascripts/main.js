@@ -149,7 +149,7 @@ return baseText;
 };
 
 // Anonymous function to handle adding a shoppingBasketBox
-var shoppingBasketBox = (name, price, amount, product_id) => {
+var shoppingBasketBox = (name, price, amount) => {
   var baseText = `
   <div class="box">
     <div>
@@ -160,9 +160,6 @@ var shoppingBasketBox = (name, price, amount, product_id) => {
         </div>
       <div>
         <p>${amount} st </p>
-      </div>
-      <div>
-        <p>${product_id}
       </div>
     </div>
   </div> `
