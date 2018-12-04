@@ -71,4 +71,12 @@ router.post('/product/addToBasket/', function(req, res, next) {
 });
 
 
+router.post('/product/placeOrder/', function(req, res, next){
+    if(req.session.userID){
+        DB.placeOrder(req.session.userID);
+    }else{
+        res.sendStatus(403);
+    }
+});
+
 module.exports = router;
