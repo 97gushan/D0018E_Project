@@ -165,5 +165,28 @@ module.exports = {
         });
 
         res.sendStatus(200);
+    },
+    placeOrder : function(res, userID){
+        var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
+        var value = [[userID]];
+
+        var wares;
+
+        connection.query(sqlGetWares, [value], function(err, result){
+            if(err) throw err;
+            console.log(result);
+            wares = result;
+        });
+
+        value = [[userID, 0]];
+        var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
+        var orderID;
+        connection.query(sqlCreateOrder, [value], function(err, result){
+            if(err) throw err;
+            // Get order id from result after insertion in db
+            orderID = result.insertId;
+        });
+
+        //var sqlAddWaresToOrder = "INSERT INTO order_"
     }
 };
