@@ -15,7 +15,7 @@ $(document).ready(function(){
   // Close if user clicks outside the box
   $(document).on("mouseup", function(e)
   {
-      var container = $(".loginWindow"); 
+      var container = $(".loginWindow");
 
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0)
@@ -23,7 +23,7 @@ $(document).ready(function(){
           container.hide();
       }
 
-      container = $("#productWindow"); 
+      container = $("#productWindow");
 
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0)
@@ -90,7 +90,7 @@ function searchBarHandler(){
   }, writetime);
 
   function resetTimeout(timeoutObject){
-    clearTimeout(timeoutObject);
+    clearTmeout(timeoutObject);
     return setTimeout(() => { getProducts(); }, writetime);
   }
 
@@ -148,6 +148,28 @@ var productbox = (id, name, description, price, inventory) => {
 return baseText;
 };
 
+// Anonymous function to handle adding a shoppingBasketBox
+var shoppingBasketBox = (name, price, amount, product_id) => {
+  var baseText = `
+  <div class="box">
+    <div>
+      <h2>${name} </h2>
+      <div>
+        <div>
+          <p>${price} kr</p>
+        </div>
+      <div>
+        <p>${amount} st </p>
+      </div>
+      <div>
+        <p>${product_id}
+      </div>
+    </div>
+  </div> `
+
+return baseText;
+};
+
 // Product object
 function product(id, name, description, price, inventory){
   this.id = id;
@@ -157,7 +179,15 @@ function product(id, name, description, price, inventory){
   this.inventory = inventory;
 };
 
+function shopping_basket(name, price, amount, product_id){
+  this.name = name;
+  this.price = price;
+  this.amount = amount;
+  this.product_id = product_id;
+};
+
 var products = [];
+var shoppingbasket = [];
 
 
 // Get the products with the chosen filter
@@ -166,7 +196,7 @@ var products = [];
 function getProducts() {
   $.getJSON("/api/product/get?query=" + $("#inputname").val(), function(jsonfile) {
     products = [];
-    
+
     jsonfile.forEach(prod => {
       products.push(new product(prod.id, prod.name, prod.description, prod.price, prod.inventory));
     });
@@ -187,6 +217,32 @@ function addProductToBasket(price, amount, product_id){
   $.post("/api/product/addToBasket/" ,{price: price, amount: 1,  product_id: product_id});
 }
 
+function placeOrder(){
+  //console.log("order placed");
+  $.post("/api/order/placeOrder");
+}
+
+
+function getShoppingBasket() {
+  $.getJSON("/api/product/getShoppingBasket", function(jsonfile){
+    console.log(jsonfile);
+    shoppingbasket = [];
+    jsonfile.forEach(itemInBasket => {
+      shoppingbasket.push(new shopping_basket("The price is rice", itemInBasket.price, itemInBasket.amount, itemInBasket.product_id));
+    });
+    addShoppingBasket();
+
+  });
+}
+
+function addShoppingBasket(){
+  $("#shoppingbasketbox-container").empty();
+  shoppingbasket.forEach(itemInBasket => {
+    $("#shoppingbasketbox-container").append(shoppingBasketBox(itemInBasket.name, itemInBasket.price, itemInBasket.amount, itemInBasket.product_id));
+  })
+}
+
+
 
 function openPage(pageName, elmnt) {
   // Hide all elements with class="tabcontent" by default */
@@ -201,12 +257,15 @@ function openPage(pageName, elmnt) {
   for (i = 0; i < tablinks.length; i++) {
       tablinks[i].style.backgroundColor = "";
   }
+    if(pageName == 'Shopping'){
+      console.log("Hej Hej!")
+      getShoppingBasket();
+    }
 
   // Show the specific tab content
   document.getElementById(pageName).style.display = "block";
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = $(document.body).css("background-color");
+
 }
-
-

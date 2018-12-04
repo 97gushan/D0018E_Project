@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`product` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(60) NOT NULL,
   `price` INT UNSIGNED NOT NULL,
-  `inventory` INT UNSIGNED NOT NULL,
+  `inventory` INT NOT NULL,
   `description` VARCHAR(60) NOT NULL,
   `category` VARCHAR(45) NOT NULL,
   `available` TINYINT(1) NOT NULL,
@@ -43,10 +43,11 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`review` (
 -- -----------------------------------------------------
 -- Table `D0018E`.`order`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `D0018E`.`order` (
+CREATE TABLE IF NOT EXISTS `D0018E`.`orders` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
+  `date` timestamp DEFAULT CURRENT_TIMESTAMP,
   `user_id` INT UNSIGNED NOT NULL,
+  `status` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES D0018E.user (id));
 
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`order_item` (
   `order_id` INT UNSIGNED NOT NULL,
   `product_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`order_id`) REFERENCES D0018E.order (id),
+  FOREIGN KEY (`order_id`) REFERENCES D0018E.orders (id),
   FOREIGN KEY (`product_id`) REFERENCES D0018E.product (id));
 
 -- -----------------------------------------------------

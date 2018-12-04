@@ -51,8 +51,8 @@ module.exports = {
             // Errorcheck if user exists
             if(typeof result == 'undefined' || result[0] == null)
                 return res.sendStatus(401);
-            
-                
+
+
 
 
             // compare the  password
@@ -71,8 +71,8 @@ module.exports = {
             });
 
 
-            
-            
+
+
         });
 
 
@@ -127,7 +127,7 @@ module.exports = {
                 res.send(202);
             });
 
-    }, 
+    },
     addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
 
         var sql = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
@@ -141,10 +141,11 @@ module.exports = {
     },
     // GET shopping basket FROM DB
     // RETURNS A JSON FILE
-    getShoppingBasket : function(req, res, next, userID) {
+    getShoppingBasket : function(req, res, next) {
 
 
         var sql = "SELECT * FROM shopping_basket WHERE user_id = ?";
+        var userID = req.session.userID;
         var value = [[userID]];
 
         connection.query(sql, [value], function(err, result) {
@@ -201,5 +202,73 @@ module.exports = {
             return res.sendStatus(200);
         });
 
+<<<<<<< HEAD
     },
+=======
+        res.sendStatus(200);
+    },
+    placeOrder : function(res, userID){
+        var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
+        var value_user = [[userID]];
+
+        var wares;
+
+        connection.query(sqlGetWares, [value_user], function(err, result){
+            if(err) throw err;
+            wares = result;
+
+            if(wares.length > 0){
+
+                value_order = [[userID, 0]];
+
+                var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
+                var orderID;
+                
+                // Create a order in the orders table
+                connection.query(sqlCreateOrder, [value_order], function(err, result){
+                    if(err) throw err;
+                    // Get order id from result after insertion in db
+                    orderID = result.insertId;
+                    
+                    
+                    var sqlAddWaresToOrder = "INSERT INTO order_item (price, amount , order_id, product_id) VALUES ?";
+                    values_wares = [];
+                    
+                    // add all the interesting values to a list
+                    wares.forEach(ware => {
+                        values_wares.push([ware.price, ware.amount, orderID, ware.product_id]);
+                    });
+                    
+                    // Add the wares to the order_item table
+                    connection.query(sqlAddWaresToOrder, [values_wares], function(err, result){
+                        if(err) throw err;
+                        //console.log("order placed");
+                        
+                        // Remove the wares from the shopping basket
+                        var sqlRemoveWaresFromBasket = "DELETE FROM shopping_basket WHERE user_id = ?";
+                        connection.query(sqlRemoveWaresFromBasket, [value_user], function(err, result){
+                            if(err) throw err;
+                            //console.log("wares removed");
+                            res.sendStatus(200);
+                        });
+
+                        var sqlReduceInventory = "UPDATE product SET inventory = inventory - ? WHERE id = ?";
+                        var values_reduce = [];
+                        wares.forEach(ware => {
+                            values_reduce.push(ware.amount, ware.product_id);
+                        });
+
+                        connection.query(sqlReduceInventory, values_reduce,function(err, result){
+                            if(err) throw err;
+                            //console.log("reduced");
+                        });
+
+                    });
+
+                });
+            }
+        });
+        
+    }
+>>>>>>> 90cef23c74c9559d320f00e9c106683531c39908
 };
