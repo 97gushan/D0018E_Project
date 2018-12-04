@@ -129,14 +129,14 @@ module.exports = {
 
     },
     addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
-        
+
         var sqlLookupInBasket = "SELECT * FROM shopping_basket WHERE product_id = ?";
         var value_product = [[productId]];
 
         // check if the product exists in a users shoppingbasket
         connection.query(sqlLookupInBasket, [value_product], function(err, result){
             // if the product does not exist in the shoppingbasket
-            // add it 
+            // add it
             if(result.length == 0){
                 var sqlInsertToBasket = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
                 var values = [[ price,  amount, userId, productId]];
@@ -157,14 +157,15 @@ module.exports = {
             }
         });
 
-        
+
     },
     // GET shopping basket FROM DB
     // RETURNS A JSON FILE
     getShoppingBasket : function(req, res, next) {
 
 
-        var sql = "SELECT * FROM shopping_basket WHERE user_id = ?";
+        var sql = "SELECT product.name, shopping_basket.price, shopping_basket.amount FROM shopping_basket " +
+        "INNER JOIN product ON product.id=shopping_basket.product_id WHERE user_id = ?";
         var userID = req.session.userID;
         var value = [[userID]];
 
@@ -238,27 +239,27 @@ module.exports = {
 
                 var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
                 var orderID;
-                
+
                 // Create a order in the orders table
                 connection.query(sqlCreateOrder, [value_order], function(err, result){
                     if(err) throw err;
                     // Get order id from result after insertion in db
                     orderID = result.insertId;
-                    
-                    
+
+
                     var sqlAddWaresToOrder = "INSERT INTO order_item (price, amount , order_id, product_id) VALUES ?";
                     values_wares = [];
-                    
+
                     // add all the interesting values to a list
                     wares.forEach(ware => {
                         values_wares.push([ware.price, ware.amount, orderID, ware.product_id]);
                     });
-                    
+
                     // Add the wares to the order_item table
                     connection.query(sqlAddWaresToOrder, [values_wares], function(err, result){
                         if(err) throw err;
                         //console.log("order placed");
-                        
+
                         // Remove the wares from the shopping basket
                         var sqlRemoveWaresFromBasket = "DELETE FROM shopping_basket WHERE user_id = ?";
                         connection.query(sqlRemoveWaresFromBasket, [value_user], function(err, result){
@@ -283,6 +284,6 @@ module.exports = {
                 });
             }
         });
-        
+
     }
 };

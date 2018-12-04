@@ -179,11 +179,10 @@ function product(id, name, description, price, inventory){
   this.inventory = inventory;
 };
 
-function shopping_basket(name, price, amount, product_id){
+function shopping_basket(name, price, amount){
   this.name = name;
   this.price = price;
   this.amount = amount;
-  this.product_id = product_id;
 };
 
 var products = [];
@@ -228,7 +227,7 @@ function getShoppingBasket() {
     console.log(jsonfile);
     shoppingbasket = [];
     jsonfile.forEach(itemInBasket => {
-      shoppingbasket.push(new shopping_basket("The price is rice", itemInBasket.price, itemInBasket.amount, itemInBasket.product_id));
+      shoppingbasket.push(new shopping_basket(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
     });
     addShoppingBasket();
 
@@ -238,7 +237,7 @@ function getShoppingBasket() {
 function addShoppingBasket(){
   $("#shoppingbasketbox-container").empty();
   shoppingbasket.forEach(itemInBasket => {
-    $("#shoppingbasketbox-container").append(shoppingBasketBox(itemInBasket.name, itemInBasket.price, itemInBasket.amount, itemInBasket.product_id));
+    $("#shoppingbasketbox-container").append(shoppingBasketBox(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
   })
 }
 
