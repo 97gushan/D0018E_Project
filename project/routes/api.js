@@ -70,5 +70,13 @@ router.post('/product/addToBasket/', function(req, res, next) {
     }
 });
 
+/* Get the reviews for a specific item from the database */
+router.get('/product/getReviewsForItem', function(req, res, next) {
+
+
+    DB.getReviewsFromItem(req, res, next);
+
+});
+
 
 module.exports = router;

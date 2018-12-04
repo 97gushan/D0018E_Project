@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`product` (
   `inventory` INT UNSIGNED NOT NULL,
   `description` VARCHAR(60) NOT NULL,
   `category` VARCHAR(45) NOT NULL,
+  `available` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`user` (
   PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
--- Table `D0018E`.`comment`
+-- Table `D0018E`.`review`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `D0018E`.`review` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
