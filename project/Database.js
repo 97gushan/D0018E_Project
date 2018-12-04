@@ -174,19 +174,43 @@ module.exports = {
 
         connection.query(sqlGetWares, [value], function(err, result){
             if(err) throw err;
-            console.log(result);
             wares = result;
-        });
 
-        value = [[userID, 0]];
-        var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
-        var orderID;
-        connection.query(sqlCreateOrder, [value], function(err, result){
-            if(err) throw err;
-            // Get order id from result after insertion in db
-            orderID = result.insertId;
-        });
+            value = [[userID, 0]];
+            
+            var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
+            var orderID;
+            
+            connection.query(sqlCreateOrder, [value], function(err, result){
+                if(err) throw err;
+                // Get order id from result after insertion in db
+                orderID = result.insertId;
+                
+                
+                var sqlAddWaresToOrder = "INSERT INTO order_item (price, amount , order_id, product_id) VALUES ?";
+                values = [];
+                
+                // add all the interesting values to a list
+                wares.forEach(ware => {
+                    values.push([ware.price, ware.amount, orderID, ware.product_id]);
+                });
+                
+                connection.query(sqlAddWaresToOrder, [values], function(err, result){
+                    if(err) throw err;
+                    //console.log("order placed");
 
-        //var sqlAddWaresToOrder = "INSERT INTO order_"
+                    var sqlRemoveWaresFromBasket = "DELETE FROM shopping_basket WHERE user_id = ?";
+                    value = [[userID]];
+                    connection.query(sqlRemoveWaresFromBasket, [value], function(err, result){
+                        if(err) throw err;
+                        //console.log("wares removed");
+                        res.sendStatus(200);
+                    });
+
+                });
+            });
+            
+        });
+        
     }
 };
