@@ -85,10 +85,10 @@ router.get('/product/getReviewsForItem', function(req, res, next) {
 });
 
 
-router.get('/product/placeOrder', function(req, res, next){
+router.post('/order/placeOrder', function(req, res, next){
     if(req.session.userID){
+        //console.log(req.session.userID);
         DB.placeOrder(res, req.session.userID);
-        res.sendStatus(200);
     }else{
         res.sendStatus(403);
     }

@@ -214,6 +214,11 @@ function addProductToBasket(price, amount, product_id){
   $.post("/api/product/addToBasket/" ,{price: price, amount: 1,  product_id: product_id});
 }
 
+function placeOrder(){
+  //console.log("order placed");
+  $.post("/api/order/placeOrder");
+}
+
 
 function getShoppingBasket() {
   $.getJSON("/api/product/getShoppingBasket", function(jsonfile){
