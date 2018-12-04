@@ -225,7 +225,7 @@ function getShoppingBasket() {
     console.log(jsonfile);
     shoppingbasket = [];
     jsonfile.forEach(itemInBasket => {
-      shoppingbasket.push(new shopping_basket("The price is rice", itemInBasket.price, itemInBasket.amount, itemInBasket.product_id));
+      shoppingbasket.push(new shopping_basket(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
     });
     addShoppingBasket();
 
@@ -235,7 +235,7 @@ function getShoppingBasket() {
 function addShoppingBasket(){
   $("#shoppingbasketbox-container").empty();
   shoppingbasket.forEach(itemInBasket => {
-    $("#shoppingbasketbox-container").append(shoppingBasketBox(itemInBasket.name, itemInBasket.price, itemInBasket.amount, itemInBasket.product_id));
+    $("#shoppingbasketbox-container").append(shoppingBasketBox(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
   })
 }
 
