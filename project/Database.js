@@ -201,11 +201,6 @@ module.exports = {
                 throw err;}
             return res.sendStatus(200);
         });
-
-<<<<<<< HEAD
-    },
-=======
-        res.sendStatus(200);
     },
     placeOrder : function(res, userID){
         var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
@@ -270,5 +265,4 @@ module.exports = {
         });
         
     }
->>>>>>> 90cef23c74c9559d320f00e9c106683531c39908
 };
