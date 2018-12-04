@@ -72,8 +72,10 @@ $(document).ready(function(){
       if("productBoxnr" + e.id == thisID)
         return e;
     });
-    
-    $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
+
+    $("#productbox-container").append($(this).load("/productWindow?id=" + pid.id));
+    console.log("clicked");
+    //$("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
   });
 
 
@@ -98,28 +100,6 @@ function searchBarHandler(){
 
 }
 
-// Anonymous function to handle adding a product box
-var productwindow = (id, name, description, price, inventory) => {
-  var baseText = `
-  <div id="productWindow" class="pane">
-    <div>
-      <h2>${name}</h2>
-      <div>
-        <div>
-          <p>${description}</p>
-        </div>
-        <p>${price} kr</p>
-      </div>
-      <div>
-        <p>${inventory} st</p>
-        <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button>
-      </div>
-
-    </div>
-  </div> `
-
-return baseText;
-};
 
 
 
@@ -205,5 +185,10 @@ function openPage(pageName, elmnt) {
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = $(document.body).css("background-color");
 }
+
+function deleteProduct(product_id){
+  $.post("/api/product/delete/" ,{product_id: product_id});
+}
+//loads product window 
 
 

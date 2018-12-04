@@ -1,0 +1,21 @@
+<div id="productWindowDiv" class="pane">
+    <div>
+    <h2>${name}</h2>
+    <div>
+        <div>
+        <p>${description}</p>
+        </div>
+        <p>${price} kr</p>
+    </div>
+    <div>
+        <p>${inventory} st</p>
+        <button onclick="addProductToBasket('3','1','<%= id %>')"> Buy </button> 
+    </div>
+    <% if (admin) { %>
+    <div>
+        <button onclick="deleteProduct('<%= id %>')"> remove </button>
+    </div>
+    <%} %>
+    </div>
+</div>
+

@@ -56,6 +56,7 @@ router.get('/product/delete/', function(req, res, next) {
 
 });
 
+
 /* Add product to table shopping_basket */
 router.post('/product/addToBasket/', function(req, res, next) {
     var price = parseInt(req.body.price);

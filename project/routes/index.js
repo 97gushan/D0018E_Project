@@ -19,5 +19,11 @@ router.get('/', function(req, res, next) {
   
 
 });
+//productwindow
+router.get('/productWindow', function(req, res, next) {
 
+
+  res.render("productWindow", {id:req.query.id, admin: ses.adminFlag});
+
+});
 module.exports = router;
