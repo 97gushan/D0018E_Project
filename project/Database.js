@@ -198,29 +198,29 @@ module.exports = {
         var productID = req.body.product_id;
         var sql;
         var value;
-
-        if(req.body.rating){
-            rating = req.body.rating;
-            value = [[rating, userID, productID]];
-            sql = "INSERT INTO review (rating, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE rating = " + connection.escape(rating);
-        }
-
-        if(req.body.comment){
-            comment = req.body.comment;
-            value = [[comment, userID, productID]];
-            sql = "INSERT INTO review (comment, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE comment = " + connection.escape(comment);
-        }
-
-
         
+        // Check if user is logged in
+        if(userID >= 0){
+            if(req.body.rating){
+                rating = req.body.rating;
+                value = [[rating, userID, productID]];
+                sql = "INSERT INTO review (rating, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE rating = " + connection.escape(rating);
+            }
+    
+            if(req.body.comment){
+                comment = req.body.comment;
+                value = [[comment, userID, productID]];
+                sql = "INSERT INTO review (comment, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE comment = " + connection.escape(comment);
+            }
+    
+            connection.query(sql, [value], function(err, result) {
+                if(err) {
+    
+                    throw err;}
+                return res.sendStatus(200);
+            });
+        }
         
-
-        connection.query(sql, [value], function(err, result) {
-            if(err) {
-
-                throw err;}
-            return res.sendStatus(200);
-        });
     },
     placeOrder : function(res, userID){
         var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
