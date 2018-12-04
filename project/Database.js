@@ -129,15 +129,35 @@ module.exports = {
 
     },
     addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
+        
+        var sqlLookupInBasket = "SELECT * FROM shopping_basket WHERE product_id = ?";
+        var value_product = [[productId]];
 
-        var sql = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
-        var values = [[ price,  amount, userId, productId]];
+        // check if the product exists in a users shoppingbasket
+        connection.query(sqlLookupInBasket, [value_product], function(err, result){
+            // if the product does not exist in the shoppingbasket
+            // add it 
+            if(result.length == 0){
+                var sqlInsertToBasket = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
+                var values = [[ price,  amount, userId, productId]];
 
-        connection.query(sql, [values], function(err, result){
-            if(err) throw err;
-            res.sendStatus(201);
+                connection.query(sqlInsertToBasket, [values], function(err, result){
+                    if(err) throw err;
+                    res.sendStatus(201);
 
+                });
+            }else{
+                // if the product does exist then update amount
+                var sqlReduceInventory = "UPDATE shopping_basket SET amount = amount + ? WHERE user_id = ? AND product_id = ?";
+                var values_increase = [amount, userId, productId];
+
+                connection.query(sqlReduceInventory, values_increase,function(err, result){
+                    if(err) throw err;
+                });
+            }
         });
+
+        
     },
     // GET shopping basket FROM DB
     // RETURNS A JSON FILE
