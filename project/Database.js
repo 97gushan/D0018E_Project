@@ -168,47 +168,62 @@ module.exports = {
     },
     placeOrder : function(res, userID){
         var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
-        var value = [[userID]];
+        var value_user = [[userID]];
 
         var wares;
 
-        connection.query(sqlGetWares, [value], function(err, result){
+        connection.query(sqlGetWares, [value_user], function(err, result){
             if(err) throw err;
             wares = result;
 
             if(wares.length > 0){
-                value = [[userID, 0]];
-            
+
+                value_order = [[userID, 0]];
+
                 var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
                 var orderID;
                 
-                connection.query(sqlCreateOrder, [value], function(err, result){
+                // Create a order in the orders table
+                connection.query(sqlCreateOrder, [value_order], function(err, result){
                     if(err) throw err;
                     // Get order id from result after insertion in db
                     orderID = result.insertId;
                     
                     
                     var sqlAddWaresToOrder = "INSERT INTO order_item (price, amount , order_id, product_id) VALUES ?";
-                    values = [];
+                    values_wares = [];
                     
                     // add all the interesting values to a list
                     wares.forEach(ware => {
-                        values.push([ware.price, ware.amount, orderID, ware.product_id]);
+                        values_wares.push([ware.price, ware.amount, orderID, ware.product_id]);
                     });
                     
-                    connection.query(sqlAddWaresToOrder, [values], function(err, result){
+                    // Add the wares to the order_item table
+                    connection.query(sqlAddWaresToOrder, [values_wares], function(err, result){
                         if(err) throw err;
                         //console.log("order placed");
-
+                        
+                        // Remove the wares from the shopping basket
                         var sqlRemoveWaresFromBasket = "DELETE FROM shopping_basket WHERE user_id = ?";
-                        value = [[userID]];
-                        connection.query(sqlRemoveWaresFromBasket, [value], function(err, result){
+                        connection.query(sqlRemoveWaresFromBasket, [value_user], function(err, result){
                             if(err) throw err;
                             //console.log("wares removed");
                             res.sendStatus(200);
                         });
 
+                        var sqlReduceInventory = "UPDATE product SET inventory = inventory - ? WHERE id = ?";
+                        var values_reduce = [];
+                        wares.forEach(ware => {
+                            values_reduce.push(ware.amount, ware.product_id);
+                        });
+
+                        connection.query(sqlReduceInventory, values_reduce,function(err, result){
+                            if(err) throw err;
+                            //console.log("reduced");
+                        });
+
                     });
+
                 });
             }
         });
