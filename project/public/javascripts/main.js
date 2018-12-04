@@ -179,11 +179,10 @@ function product(id, name, description, price, inventory){
   this.inventory = inventory;
 };
 
-function shopping_basket(name, price, amount, product_id){
+function shopping_basket(name, price, amount){
   this.name = name;
   this.price = price;
   this.amount = amount;
-  this.product_id = product_id;
 };
 
 var products = [];
