@@ -79,8 +79,15 @@ router.get('/product/getShoppingBasket', function(req, res, next) {
 /* Get the reviews for a specific item from the database */
 router.get('/product/getReviewsForItem', function(req, res, next) {
 
+    DB.getReviewsForItem(req, res, next);
 
-    DB.getReviewsFromItem(req, res, next);
+});
+
+/* Add a new review to a product */
+router.post('/product/addReviewToItem', function(req, res, next) {
+
+
+    DB.addReviewToItem(req, res, next);
 
 });
 

@@ -74,6 +74,8 @@ $(document).ready(function(){
     });
 
     $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
+
+    getProductReviews(pid.id);
   });
 
 
@@ -109,6 +111,7 @@ var productwindow = (id, name, description, price, inventory) => {
           <p>${description}</p>
         </div>
         <p>${price} kr</p>
+      <div class="rateit"> </div>
       </div>
       <div>
         <p>${inventory} st</p>

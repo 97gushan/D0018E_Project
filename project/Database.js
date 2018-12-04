@@ -129,15 +129,35 @@ module.exports = {
 
     },
     addToShoppingBasket : function(req, res, next, price, amount, userId, productId) {
+        
+        var sqlLookupInBasket = "SELECT * FROM shopping_basket WHERE product_id = ?";
+        var value_product = [[productId]];
 
-        var sql = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
-        var values = [[ price,  amount, userId, productId]];
+        // check if the product exists in a users shoppingbasket
+        connection.query(sqlLookupInBasket, [value_product], function(err, result){
+            // if the product does not exist in the shoppingbasket
+            // add it 
+            if(result.length == 0){
+                var sqlInsertToBasket = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
+                var values = [[ price,  amount, userId, productId]];
 
-        connection.query(sql, [values], function(err, result){
-            if(err) throw err;
-            res.sendStatus(201);
+                connection.query(sqlInsertToBasket, [values], function(err, result){
+                    if(err) throw err;
+                    res.sendStatus(201);
 
+                });
+            }else{
+                // if the product does exist then update amount
+                var sqlReduceInventory = "UPDATE shopping_basket SET amount = amount + ? WHERE user_id = ? AND product_id = ?";
+                var values_increase = [amount, userId, productId];
+
+                connection.query(sqlReduceInventory, values_increase,function(err, result){
+                    if(err) throw err;
+                });
+            }
         });
+
+        
     },
     // GET shopping basket FROM DB
     // RETURNS A JSON FILE
@@ -155,50 +175,135 @@ module.exports = {
         });
 
     },
+<<<<<<< HEAD
 
+=======
+    // Get reviews and ratings from database for a specific product
+    getReviewsForItem : function(req, res, next){
+
+        var prodID = parseInt(req.query.query);
+
+        var sql = "SELECT rating, comment, user_id FROM review WHERE product_id = ?";
+        var value = [[prodID]];
+
+        connection.query(sql, [value], function(err, result) {
+            if(err) throw err;
+            res.send(result);
+        });
+    },
+    // Add a new review and rating for a product
+    addReviewToItem : function(req, res, next){
+        ses = req.session;
+
+        var rating = null;
+        var comment = null;
+
+        var userID = ses.userID;
+        var productID = req.body.product_id;
+        var sql;
+        var value;
+
+        if(req.body.rating){
+            rating = req.body.rating;
+            value = [[rating, userID, productID]];
+            sql = "INSERT INTO review (rating, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE rating = " + connection.escape(rating);
+        }
+
+        if(req.body.comment){
+            comment = req.body.comment;
+            value = [[comment, userID, productID]];
+            sql = "INSERT INTO review (comment, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE comment = " + connection.escape(comment);
+        }
+
+
+        
+        
+
+        connection.query(sql, [value], function(err, result) {
+            if(err) {
+
+                throw err;}
+            return res.sendStatus(200);
+        });
+    },
+>>>>>>> f2e00fdab1fc2c6e509cc32df2fe211d6f5e59b3
     placeOrder : function(res, userID){
         var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
-        var value = [[userID]];
+        var value_user = [[userID]];
 
         var wares;
 
-        connection.query(sqlGetWares, [value], function(err, result){
+        connection.query(sqlGetWares, [value_user], function(err, result){
             if(err) throw err;
             wares = result;
 
             if(wares.length > 0){
+<<<<<<< HEAD
                 value = [[userID, 0]];
 
                 var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
                 var orderID;
 
                 connection.query(sqlCreateOrder, [value], function(err, result){
+=======
+
+                value_order = [[userID, 0]];
+
+                var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
+                var orderID;
+                
+                // Create a order in the orders table
+                connection.query(sqlCreateOrder, [value_order], function(err, result){
+>>>>>>> f2e00fdab1fc2c6e509cc32df2fe211d6f5e59b3
                     if(err) throw err;
                     // Get order id from result after insertion in db
                     orderID = result.insertId;
 
 
                     var sqlAddWaresToOrder = "INSERT INTO order_item (price, amount , order_id, product_id) VALUES ?";
+<<<<<<< HEAD
                     values = [];
 
+=======
+                    values_wares = [];
+                    
+>>>>>>> f2e00fdab1fc2c6e509cc32df2fe211d6f5e59b3
                     // add all the interesting values to a list
                     wares.forEach(ware => {
-                        values.push([ware.price, ware.amount, orderID, ware.product_id]);
+                        values_wares.push([ware.price, ware.amount, orderID, ware.product_id]);
                     });
+<<<<<<< HEAD
 
                     connection.query(sqlAddWaresToOrder, [values], function(err, result){
+=======
+                    
+                    // Add the wares to the order_item table
+                    connection.query(sqlAddWaresToOrder, [values_wares], function(err, result){
+>>>>>>> f2e00fdab1fc2c6e509cc32df2fe211d6f5e59b3
                         if(err) throw err;
                         //console.log("order placed");
-
+                        
+                        // Remove the wares from the shopping basket
                         var sqlRemoveWaresFromBasket = "DELETE FROM shopping_basket WHERE user_id = ?";
-                        value = [[userID]];
-                        connection.query(sqlRemoveWaresFromBasket, [value], function(err, result){
+                        connection.query(sqlRemoveWaresFromBasket, [value_user], function(err, result){
                             if(err) throw err;
                             //console.log("wares removed");
                             res.sendStatus(200);
                         });
 
+                        var sqlReduceInventory = "UPDATE product SET inventory = inventory - ? WHERE id = ?";
+                        var values_reduce = [];
+                        wares.forEach(ware => {
+                            values_reduce.push(ware.amount, ware.product_id);
+                        });
+
+                        connection.query(sqlReduceInventory, values_reduce,function(err, result){
+                            if(err) throw err;
+                            //console.log("reduced");
+                        });
+
                     });
+
                 });
             }
         });
