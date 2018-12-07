@@ -8,7 +8,7 @@
   -->
 
 
-<div class="loginWindow pane">
+<form id="loginWindow" class="pane" action="/api/user/login" method="post" onsubmit=" event.preventDefault(); loginUser();">
     <div class="w3-container">
       <% if (autheticated) { %>
         <div>
@@ -18,17 +18,17 @@
       <% } else {%>
       <div>
         <label class="">Username:</label>
-        <input class = "w3-input" type="text" id="loginusername" required maxlength="150">
+        <input class = "w3-input" name="username" type="text" id="loginusername" required maxlength="150">
       </div>
       <div>
         <label >Password:</label>
-        <input class = "w3-input" type="password" id="loginpassword" required>
+        <input class = "w3-input" name="password" type="password" id="loginpassword" required>
       </div>
         <button id="loginbutton">Login</button>
         <button id="registerbutton">Register</button><br>
       <% }%>
     </div>
-</div>
+</form>
 
 
 <div id="accountPanel">

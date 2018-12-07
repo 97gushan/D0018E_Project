@@ -1,7 +1,7 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px;
-  background:rgb(236, 236, 236);
+  background: #74AFFF;
   height: 100vh;
 }
 
@@ -28,7 +28,8 @@ h1 {
 }
 
 .banner {
-  background-color: darkgray;
+  background-color: #1D2C40;
+  color: white;
   border: 0px;
   margin: 0px 0px 10px 0px;
   width: 100vw;
@@ -68,7 +69,7 @@ h1 {
 }
 
 
-.loginWindow  {
+#loginWindow  {
   top: 10vh; right: 0;
   width: 300px;
   height: 250px;
@@ -80,6 +81,8 @@ h1 {
   -moz-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
   -webkit-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
   -box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+  background-color: #5783BF;
+
 }
 
 #loginbutton {
@@ -98,12 +101,49 @@ h1 {
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-  display: none;
   padding: 0px;
 }
 
+.tabhidden{
+  /* animation: slide-out 0.5s forwards;
+  -webkit-animation: slide-out 0.5s forwards; */
+  display: none;
+}
+
+.tabvisible{
+  /* animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards; */
+  display: block;
+
+}
+
+
+/* Add Animation */
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+    
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+    
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-100%); }
+}
+
 .tablink {
-  background-color: darkgray;
+  background-color: #3A577F;
   color: black;
   float: left;
   border: none;
@@ -116,7 +156,7 @@ h1 {
 }
 
 .tablink:hover {
-  background-color: #777;
+  background-color: #689DE5;
 }
 
 
@@ -136,32 +176,38 @@ h1 {
 }
 
 .productbox-container {
-width: 80vw;
-margin: 4vh 10vw 0vw 10vw;
+  width: 80vw;
+  margin: 4vh 10vw 0vw 10vw;
 }
 
 .shoppingbasketbox-container {
-width: 80vw;
-margin: 4vh 10vw 0vw 10vw;
+  width: 80vw;
+  margin: 4vh 10vw 0vw 10vw;
 }
 
-.box {
-float: left;
-min-width: 13em;
-max-width: 20em;
-height: 13em;
-margin: 2%;
-padding: 0.8em;
-border: 0.1em solid black;
-border-radius: 1em;
-
+.innerbox {
+  min-width: 13em;
+  max-width: 20em;
+  height: 13em;
+  margin: 2vw;
+  padding: 0.8em;
+  border: 0.1em solid white;
+  border-radius: 1em;
+  background-color: #3A577F;
+  color:white;
 }
 
-.box p {
+.productbox{
+  margin: auto;  
+  padding: auto;
+  float: left;
+}
+
+.productbox p {
 width: 13em;
 }
 
-.box h2 {
+.productbox h2 {
 text-align: center;
-border-bottom: 0.1em solid black;
+border-bottom: 0.1em solid white;
 }

@@ -6,16 +6,16 @@ $(document).ready(function(){
     searchBarHandler();
   });
 
-  $(".loginWindow").hide();
+  $("#loginWindow").hide();
 
   $("#accountButton").click(function(){
-      $(".loginWindow").toggle();
+      $("#loginWindow").toggle();
   });
 
   // Close if user clicks outside the box
   $(document).on("mouseup", function(e)
   {
-      var container = $(".loginWindow");
+      var container = $("#loginWindow");
 
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0)
@@ -34,19 +34,7 @@ $(document).ready(function(){
 
   });
 
-  // Login function
-  $("#loginbutton").click(function(){
-    var uname = $("#loginusername").val();
-    var pw = $("#loginpassword").val();
 
-    $.post("/api/user/login" , {username: uname, password: pw} , function(){})
-    .done(function(res) {
-      location.reload();
-    })
-    .fail(function(res) {
-      $("#registerbutton").after("<p style='color:red'> Login Failed. Please try again. </p>");
-    });
-  });
 
 
 
@@ -81,6 +69,25 @@ $(document).ready(function(){
 
 
 });
+
+// Login function
+function loginUser(){
+  var loginForm = document.forms["loginWindow"];
+
+  console.log(loginForm["username"].value);
+  
+
+  $.post("/api/user/login" , {username: loginForm["username"].value, password: loginForm["password"].value} , function(){})
+  .done(function(res) {
+    location.reload();
+    //return true;
+  })
+  .fail(function(res) {
+    $("#registerbutton").after("<p style='color:red'> Login Failed. Please try again. </p>");
+    return false;
+  });
+}
+
 
 
 function searchBarHandler(){
@@ -129,8 +136,8 @@ return baseText;
 // Anonymous function to handle adding a product box
 var productbox = (id, name, description, price, inventory) => {
   var baseText = `
-  <div class="box" id="productBoxnr${id}">
-    <div>
+  <div class="productbox" id="productBoxnr${id}">
+    <div class="innerbox">
       <h2>${name}</h2>
       <div>
         <div>
@@ -151,7 +158,7 @@ return baseText;
 // Anonymous function to handle adding a shoppingBasketBox
 var shoppingBasketBox = (name, price, amount) => {
   var baseText = `
-  <div class="box">
+  <div class="productbox">
     <div>
       <h2>${name} </h2>
       <div>
@@ -244,7 +251,7 @@ function openPage(pageName, elmnt) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
+      tabcontent[i].className = "tabcontent tabhidden";
   }
 
   // Remove the background color of all tablinks/buttons
@@ -252,12 +259,15 @@ function openPage(pageName, elmnt) {
   for (i = 0; i < tablinks.length; i++) {
       tablinks[i].style.backgroundColor = "";
   }
-    if(pageName == 'Shopping'){
-      getShoppingBasket();
-    }
+
+
+  // Custom page triggers
+  if(pageName == 'Shopping'){
+    getShoppingBasket();
+  }
 
   // Show the specific tab content
-  document.getElementById(pageName).style.display = "block";
+  document.getElementById(pageName).className = "tabcontent tabshown";
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = $(document.body).css("background-color");
