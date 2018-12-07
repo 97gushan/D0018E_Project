@@ -101,4 +101,17 @@ router.post('/order/placeOrder', function(req, res, next){
     }
 });
 
+router.get('/order/getOrder', function(req, res, next) {
+
+    DB.getOrders(req, res, next);
+  
+});
+
+router.post('/order/changeStatus', function(req, res, next) {
+    var status = req.body.status;
+    var orderID = req.body.orderID;
+    DB.editOrderStatus(res, status, orderID);
+  
+});
+
 module.exports = router;

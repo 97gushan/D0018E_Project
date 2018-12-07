@@ -25,6 +25,3 @@ INSERT INTO product (name, price, inventory, description, category, available) V
 INSERT INTO product (name, price, inventory, description, category, available) VALUES ('Gurkmeja', 40, 100, 'En vanlig krydda', 'Krydda', 1);
 INSERT INTO product (name, price, inventory, description, category, available) VALUES ('Spiskummin', 40, 100, 'En vanlig krydda', 'Krydda', 1);
 INSERT INTO product (name, price, inventory, description, category, available) VALUES ('Lagerblad', 40, 100, 'En vanlig krydda', 'Krydda', 1);
-
-
-

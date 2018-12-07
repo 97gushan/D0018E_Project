@@ -97,7 +97,7 @@ function searchBarHandler(){
   }, writetime);
 
   function resetTimeout(timeoutObject){
-    clearTmeout(timeoutObject);
+    clearTimeout(timeoutObject);
     return setTimeout(() => { getProducts(); }, writetime);
   }
 
@@ -223,6 +223,7 @@ function addProductToBasket(price, amount, product_id){
 function placeOrder(){
   //console.log("order placed");
   $.post("/api/order/placeOrder");
+  //$("#shoppingbasketbox-container").empty();
 }
 
 
@@ -259,11 +260,12 @@ function openPage(pageName, elmnt) {
   for (i = 0; i < tablinks.length; i++) {
       tablinks[i].style.backgroundColor = "";
   }
-
-
-  // Custom page triggers
+  
   if(pageName == 'Shopping'){
     getShoppingBasket();
+  }
+  if(pageName == 'Admin'){
+    getOrders();
   }
 
   // Show the specific tab content
