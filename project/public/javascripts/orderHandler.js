@@ -13,6 +13,8 @@ var orderBox = (id, name, date, status) => {
     var statusText = "";
     if(status == 0){
         statusText = "Pending";
+    }else if(status == 1){
+      statusText = "Confirmed";
     }
     var baseText = `
     <div class="box">
@@ -27,11 +29,18 @@ var orderBox = (id, name, date, status) => {
         <div>
           <p>Status: ${statusText}</p>
         </div>
+        <div>
+          <button onclick="confirmOrder('${id}')"> Confirm </button>
+
+        </div>
       </div>
     </div> `
     return baseText;
 }
-
+ 
+function confirmOrder(id){
+  $.post("/api/order/changeStatus", {orderID:id, status:1});
+}
 
 //    to the website.
 function getOrders() {

@@ -286,13 +286,12 @@ module.exports = {
         });
 
     }, editOrderStatus : function(res, status, orderID){
-        var sqlChangeStatus = "UPDATE order SET status = ? WHERE ID = ?";
+        var sqlChangeStatus = "UPDATE orders SET status = ? WHERE ID = ?";
 
-        var value_order = [[status, orderID]];
-
-        connection.query(sqlChangeStatus, [value_order], function(err, res){
+        var value_order = [status, orderID];
+        connection.query(sqlChangeStatus, value_order, function(err, response){
             if(err) throw err;
-            return res.sendStatus(200);
+            res.sendStatus(200);
         });
     },getOrders : function(req, res, next){
         var sqlGetOrders = "SELECT orders.id, orders.date, orders.status, user.username FROM orders " +

@@ -107,8 +107,9 @@ router.get('/order/getOrder', function(req, res, next) {
   
 });
 
-router.get('/order/changeStatus', function(req, res, next, status, orderID) {
-
+router.post('/order/changeStatus', function(req, res, next) {
+    var status = req.body.status;
+    var orderID = req.body.orderID;
     DB.editOrderStatus(res, status, orderID);
   
 });
