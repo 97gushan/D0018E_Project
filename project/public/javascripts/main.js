@@ -90,7 +90,7 @@ function searchBarHandler(){
   }, writetime);
 
   function resetTimeout(timeoutObject){
-    clearTmeout(timeoutObject);
+    clearTimeout(timeoutObject);
     return setTimeout(() => { getProducts(); }, writetime);
   }
 
@@ -216,6 +216,7 @@ function addProductToBasket(price, amount, product_id){
 function placeOrder(){
   //console.log("order placed");
   $.post("/api/order/placeOrder");
+  //$("#shoppingbasketbox-container").empty();
 }
 
 

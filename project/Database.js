@@ -162,8 +162,6 @@ module.exports = {
     // GET shopping basket FROM DB
     // RETURNS A JSON FILE
     getShoppingBasket : function(req, res, next) {
-
-
         var sql = "SELECT product.name, shopping_basket.price, shopping_basket.amount FROM shopping_basket " +
         "INNER JOIN product ON product.id=shopping_basket.product_id WHERE user_id = ?";
         var userID = req.session.userID;
@@ -199,7 +197,7 @@ module.exports = {
         var productID = req.body.product_id;
         var sql;
         var value;
-        
+
         // Check if user is logged in
         if(userID >= 0){
             if(req.body.rating){
@@ -207,21 +205,21 @@ module.exports = {
                 value = [[rating, userID, productID]];
                 sql = "INSERT INTO review (rating, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE rating = " + connection.escape(rating);
             }
-    
+
             if(req.body.comment){
                 comment = req.body.comment;
                 value = [[comment, userID, productID]];
                 sql = "INSERT INTO review (comment, user_id, product_id) VALUES ? ON DUPLICATE KEY UPDATE comment = " + connection.escape(comment);
             }
-    
+
             connection.query(sql, [value], function(err, result) {
                 if(err) {
-    
+
                     throw err;}
                 return res.sendStatus(200);
             });
         }
-        
+
     },
     placeOrder : function(res, userID){
         var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
