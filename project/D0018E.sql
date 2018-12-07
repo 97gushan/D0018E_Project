@@ -9,10 +9,10 @@ USE `D0018E` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `D0018E`.`product` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(60) NOT NULL,
+  `name` TEXT NOT NULL,
   `price` INT UNSIGNED NOT NULL,
   `inventory` INT NOT NULL,
-  `description` VARCHAR(60) NOT NULL,
+  `description` TEXT NOT NULL,
   `category` VARCHAR(45) NOT NULL,
   `available` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`));

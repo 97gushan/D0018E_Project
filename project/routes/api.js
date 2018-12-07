@@ -10,6 +10,8 @@ router.post('/product/add', function(req, res, next) {
     var price = req.body.price;
     var amount = req.body.amount;
     var description = req.body.description;
+
+    console.log(description);
     DB.addProductToDB(req, res, next, product, price, amount, description, "things");
 });
 

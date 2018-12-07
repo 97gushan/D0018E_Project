@@ -1,5 +1,6 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif !important;
+  font-size: 14px;
   margin: 0px;
   background: #74AFFF;
   height: 100vh;
@@ -40,7 +41,7 @@ h1 {
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: 1;
+  z-index: 2;
 }
 
 #accountPanel  {
@@ -65,6 +66,7 @@ h1 {
 #tabButtonPanel {
   position: absolute;
   left: 1vw;
+  width: 98vw;
   bottom: 0;
 }
 
@@ -150,7 +152,7 @@ h1 {
   outline: none;
   cursor: pointer;
   font-size: 17px;
-  width: 25vw;
+  width: 33%;
   height: 4vh;
   border-radius: 7px 7px 0px 0px;
 }
@@ -165,9 +167,26 @@ h1 {
 /* -------------------------------------*/
 
 #productWindow {
+  position: fixed;
   z-index: 4;
   width: 60vw;
   height: 60vh;
+  border: 0.1em solid white;
+  border-radius: 1em;
+  background-color: #3A577F;
+  color:white;
+
+}
+
+#dimmer{
+  z-index: 3;
+  background: rgba(0,0,0,0.8);
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
 }
 
 #inputname {
@@ -175,14 +194,17 @@ h1 {
   font-size:20pt;
 }
 
-.productbox-container {
+.shoppingbasketbox-container {
   width: 80vw;
   margin: 4vh 10vw 0vw 10vw;
 }
 
-.shoppingbasketbox-container {
+#productbox-container {
   width: 80vw;
   margin: 4vh 10vw 0vw 10vw;
+  display: flex;  
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .innerbox {
@@ -190,24 +212,45 @@ h1 {
   max-width: 20em;
   height: 13em;
   margin: 2vw;
-  padding: 0.8em;
+  padding: 0.5em;
+  padding-top: 0em;
   border: 0.1em solid white;
   border-radius: 1em;
   background-color: #3A577F;
   color:white;
 }
 
+
 .productbox{
-  margin: auto;  
+  margin: 0px;  
   padding: auto;
-  float: left;
+
 }
 
 .productbox p {
-width: 13em;
+  width: 13em;
+  margin: 0px;
+  clear:both;
+  text-align: center;
+}
+
+.productbox h3 {
+  margin: 0px;
 }
 
 .productbox h2 {
-text-align: center;
-border-bottom: 0.1em solid white;
+  text-align: center;
+  border-bottom: 0.1em solid white;
+  margin: 0px;
+
+}
+
+.productdescription {
+  overflow: hidden;
+  height: 40%;
+  padding-top: 2px;
+}
+
+.productdescription p{
+  text-align: left;
 }

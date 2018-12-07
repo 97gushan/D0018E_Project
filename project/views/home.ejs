@@ -1,8 +1,9 @@
 
 
 <div class="w3-display-container">
-    <div class="w3-container">
-      <div>
+    <div class="w3-container w3-hide-small">
+
+      <div class="w3-quarter">
         <h1>
           Welcome <%= Username %>
         </h1>
@@ -11,9 +12,27 @@
         </p>
       </div>
 
-      <div class="w3-twothird w3-display-topmiddle">
+      <div class="w3-rest">
         <input type="text" id="inputname" class="w3-input">
       </div>
+
+    </div>
+
+    <div class="w3-container w3-hide-large w3-hide-medium">
+      <div class="w3-twothirds">
+        <h1>
+          Welcome <%= Username %>
+        </h1>
+        <p>
+          to our humble webshop.
+        </p>
+      </div>
+
+      <div class="w3-twothirds">
+        <input type="text" id="inputname" class="w3-input">
+      </div>
+      
+
     </div>
   </div>
   

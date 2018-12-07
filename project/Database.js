@@ -79,8 +79,8 @@ module.exports = {
 
     },addProductToDB : function(req, res, next, name, price, inventoryAmount, description, category) {
 
-        var sql = "INSERT INTO product (name, price, inventory, description, category) VALUES ?";
-        var values = [[name, price,  inventoryAmount, description, category]];
+        var sql = "INSERT INTO product (name, price, inventory, description, category, available) VALUES ?";
+        var values = [[name, price,  inventoryAmount, description, category, 1]];
 
         connection.query(sql, [values], function(err, result){
             if(err) throw err;

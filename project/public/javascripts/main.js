@@ -1,4 +1,8 @@
 
+var productWindowOpen = false;
+
+
+
 $(document).ready(function(){
 
 
@@ -11,6 +15,29 @@ $(document).ready(function(){
   $("#accountButton").click(function(){
       $("#loginWindow").toggle();
   });
+
+
+  $("#productbox-container").on("click", ".innerbox", function(){
+    if(productWindowOpen){
+      return;
+    }
+
+    var thisID = $(this).attr("id");
+
+    var pid = products.find(function(e){
+      if("productBoxnr" + e.id == thisID)
+        return e;
+    });
+
+    $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
+    
+    dim(true);
+    getProductReviews(pid.id);
+    productWindowOpen = true;
+
+  });
+
+
 
   // Close if user clicks outside the box
   $(document).on("mouseup", function(e)
@@ -26,9 +53,14 @@ $(document).ready(function(){
       container = $("#productWindow");
 
       // If the target of the click isn't the container nor a descendant of the container
-      if (!container.is(e.target) && container.has(e.target).length === 0)
+      if (!container.is(e.target) && container.has(e.target).length === 0 && productWindowOpen)
       {
+          
           container.remove();
+          setTimeout(() => {
+            productWindowOpen = false;
+            dim(false);
+          }, 20);
       }
 
 
@@ -53,19 +85,7 @@ $(document).ready(function(){
   document.getElementById("defaultOpen").click();
 
 
-  $("#productbox-container").on("click", ".productbox", function(){
-    var thisID = $(this).attr("id");
-
-    var pid = products.find(function(e){
-      if("productBoxnr" + e.id == thisID)
-        return e;
-    });
-
-    $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
-
-    getProductReviews(pid.id);
-  });
-
+  
 
 
 });
@@ -136,17 +156,18 @@ return baseText;
 // Anonymous function to handle adding a product box
 var productbox = (id, name, description, price, inventory) => {
   var baseText = `
-  <div class="productbox" id="productBoxnr${id}">
-    <div class="innerbox">
+  <div class="productbox">
+    <div class="innerbox" id="productBoxnr${id}">
       <h2>${name}</h2>
-      <div>
-        <div>
-          <p>${description}</p>
-        </div>
-        <p>${price} kr</p>
+      <div class="productdescription">
+        <p>${description}</p>
       </div>
       <div>
-        <p>${inventory} st</p>
+        <h3 style="float:left">${price} kr</h3>
+        <h3 style="float:right">${inventory} st</h3>
+      </div>
+      <div>
+        <p>Click for more info</p> 
       </div>
 
     </div>
@@ -269,9 +290,16 @@ function openPage(pageName, elmnt) {
   }
 
   // Show the specific tab content
-  document.getElementById(pageName).className = "tabcontent tabshown";
+  document.getElementById(pageName).className = "tabcontent tabshown w3-spin";
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = $(document.body).css("background-color");
 
 }
+
+
+
+function dim(bool)
+{
+    document.getElementById('dimmer').style.display=(bool?'block':'none');
+}  
