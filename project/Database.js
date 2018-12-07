@@ -285,5 +285,21 @@ module.exports = {
             }
         });
 
+    }, editOrderStatus : function(res, status, orderID){
+        var sqlChangeStatus = "UPDATE order SET status = ? WHERE ID = ?";
+
+        var value_order = [[status, orderID]];
+
+        connection.query(sqlChangeStatus, [value_order], function(err, res){
+            if(err) throw err;
+            return res.sendStatus(200);
+        });
+    },getOrders : function(req, res, next){
+        var sqlGetOrders = "SELECT * FROM orders";
+
+        connection.query(sqlGetOrders, function(err, result) {
+            if(err) throw err;
+            res.send(result);
+        });
     }
 };
