@@ -53,7 +53,7 @@ $(document).ready(function(){
   document.getElementById("defaultOpen").click();
 
 
-  $("#productbox-container").on("click", ".box", function(){
+  $("#productbox-container").on("click", ".productbox", function(){
     var thisID = $(this).attr("id");
 
     var pid = products.find(function(e){
@@ -260,7 +260,7 @@ function openPage(pageName, elmnt) {
   for (i = 0; i < tablinks.length; i++) {
       tablinks[i].style.backgroundColor = "";
   }
-  
+
   if(pageName == 'Shopping'){
     getShoppingBasket();
   }
