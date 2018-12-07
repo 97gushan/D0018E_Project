@@ -35,15 +35,11 @@ var orderBox = (id, name, date, status) => {
 
 //    to the website.
 function getOrders() {
-    console.log("1");
     orders = [];
     $.getJSON("/api/order/getOrder", function(jsonfile) {
-        console.log("2");
         jsonfile.forEach(ord => {
-            orders.push(new order(ord.id, ord.user_id, ord.date, ord.status));
+            orders.push(new order(ord.id, ord.username, ord.date, ord.status));
         });
-        console.log("3");
-        console.log(orders);
         addOrder();
     });
   
@@ -51,12 +47,9 @@ function getOrders() {
   
   
   function addOrder(){
-    console.log("4");
     $("#orderbox-container").empty();
     orders.forEach(ord => {
-        console.log(ord);
       $("#orderbox-container").append(orderBox(ord.id, ord.name, ord.date, ord.status));
     })
-    console.log("5");
   }
   

@@ -295,7 +295,9 @@ module.exports = {
             return res.sendStatus(200);
         });
     },getOrders : function(req, res, next){
-        var sqlGetOrders = "SELECT * FROM orders";
+        var sqlGetOrders = "SELECT orders.id, orders.date, orders.status, user.username FROM orders " +
+        "INNER JOIN user ON user.id=orders.user_id";
+
 
         connection.query(sqlGetOrders, function(err, result) {
             if(err) throw err;
