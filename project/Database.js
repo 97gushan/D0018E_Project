@@ -300,5 +300,23 @@ module.exports = {
             if(err) throw err;
             res.send(result);
         });
+    }, deleteOrder: function(res, orderID){
+        var sqlDeleteOrderItems = "DELETE FROM order_item WHERE order_id = ?";
+        var valueOrder = [[orderID]];
+
+        connection.query(sqlDeleteOrderItems, [valueOrder], function(err, result){
+            if(err) throw err;
+
+
+            // TODO revert inventory amount
+
+
+            var sqlDeleteOrder = "DELETE FROM orders WHERE id = ?";
+            connection.query(sqlDeleteOrder, [valueOrder], function(err, result){
+                if(err) throw err;
+                res.sendStatus(200);
+            });
+            
+        });
     }
 };
