@@ -114,4 +114,10 @@ router.post('/order/changeStatus', function(req, res, next) {
   
 });
 
+router.post('/order/deleteOrder', function(req, res, next) {
+    var orderID = req.body.orderID;
+    DB.deleteOrder(res, orderID);
+  
+});
+
 module.exports = router;

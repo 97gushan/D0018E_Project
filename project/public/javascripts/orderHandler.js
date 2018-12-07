@@ -31,6 +31,8 @@ var orderBox = (id, name, date, status) => {
         </div>
         <div>
           <button onclick="confirmOrder('${id}')"> Confirm </button>
+          <button onclick="deleteOrder('${id}')"> Delete </button>
+
 
         </div>
       </div>
@@ -40,6 +42,9 @@ var orderBox = (id, name, date, status) => {
  
 function confirmOrder(id){
   $.post("/api/order/changeStatus", {orderID:id, status:1});
+}
+function deleteOrder(id){
+  $.post("/api/order/deleteOrder", {orderID:id});
 }
 
 //    to the website.
