@@ -101,7 +101,7 @@ router.post('/order/placeOrder', function(req, res, next){
     }
 });
 
-router.get('/order/getOrders', function(req, res, next) {
+router.get('/order/getOrder', function(req, res, next) {
 
     DB.getOrders(req, res, next);
   

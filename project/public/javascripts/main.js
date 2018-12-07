@@ -255,6 +255,9 @@ function openPage(pageName, elmnt) {
     if(pageName == 'Shopping'){
       getShoppingBasket();
     }
+    if(pageName == 'Admin'){
+      getOrders();
+    }
 
   // Show the specific tab content
   document.getElementById(pageName).style.display = "block";
