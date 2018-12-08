@@ -158,13 +158,13 @@ var productbox = (id, name, description, price, inventory) => {
   var baseText = `
   <div class="productbox">
     <div class="innerbox" id="productBoxnr${id}">
-      <h2>${name}</h2>
+      <h3>${name}</h3>
       <div class="productdescription">
         <p>${description}</p>
       </div>
       <div>
-        <h3 style="float:left">${price} kr</h3>
-        <h3 style="float:right">${inventory} st</h3>
+        <h4 style="float:left">${price} kr</h4>
+        <h4 style="float:right">${inventory} st</h4>
       </div>
       <div>
         <p>Click for more info</p> 

@@ -1,7 +1,8 @@
 <div class="banner"></div>
 <div id="dimmer" class="w3-animate-opacity"></div>
 <div class="banner sticky" id="banner">
-<h1 class="w3-jumbo">Knick Knacks</h1>
+<h1 class="w3-jumbo w3-hide-small">Knick Knacks</h1>
+<h1 class="w3-hide-large w3-hide-medium">Knick Knacks</h1>
 <!-- Logout button
 <form action="/api/user/logout" method="GET"> 
   <input type="submit" value="logout" />
@@ -43,7 +44,7 @@
     <button onclick="openPage('Home', this)" class="tablink" id="defaultOpen"> HOME </button>
 
     <% if (autheticated) { %>
-      <button onclick="openPage('Shopping', this)" class="tablink"> Shopping </button>
+      <button onclick="openPage('Shopping', this)" class="tablink"> Shoppingbasket </button>
     <% } %>
 
     <% if (admin) { %>

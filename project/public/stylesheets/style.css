@@ -2,7 +2,7 @@ body {
   font-family: 'Roboto Condensed', sans-serif !important;
   font-size: 14px;
   margin: 0px;
-  background: #74AFFF;
+  background: #e1e4e8;
   height: 100vh;
 }
 
@@ -166,17 +166,7 @@ h1 {
 /* ------------- Products  -------------*/
 /* -------------------------------------*/
 
-#productWindow {
-  position: fixed;
-  z-index: 4;
-  width: 60vw;
-  height: 60vh;
-  border: 0.1em solid white;
-  border-radius: 1em;
-  background-color: #3A577F;
-  color:white;
 
-}
 
 #dimmer{
   z-index: 3;
@@ -207,6 +197,18 @@ h1 {
   justify-content: center;
 }
 
+#productWindow {
+  position: fixed;
+  z-index: 4;
+  width: 60vw;
+  height: 60vh;
+  border: 0.1em solid #6a737d;
+  border-radius: 1em;
+  background-color: #FFFFFF;
+  color: black;
+
+}
+
 .innerbox {
   min-width: 13em;
   max-width: 20em;
@@ -214,10 +216,10 @@ h1 {
   margin: 2vw;
   padding: 0.5em;
   padding-top: 0em;
-  border: 0.1em solid white;
+  border: 0.1em solid #6a737d;
   border-radius: 1em;
-  background-color: #3A577F;
-  color:white;
+  background-color: #FFFFFF;
+  color:black;
 }
 
 
@@ -234,11 +236,11 @@ h1 {
   text-align: center;
 }
 
-.productbox h3 {
+.productbox h4 {
   margin: 0px;
 }
 
-.productbox h2 {
+.productbox h3 {
   text-align: center;
   border-bottom: 0.1em solid white;
   margin: 0px;
