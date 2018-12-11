@@ -92,10 +92,7 @@ $(document).ready(function(){
 
 // Login function
 function loginUser(){
-  var loginForm = document.forms["loginWindow"];
-
-  console.log(loginForm["username"].value);
-  
+  var loginForm = document.forms["loginWindow"]; 
 
   $.post("/api/user/login" , {username: loginForm["username"].value, password: loginForm["password"].value} , function(){})
   .done(function(res) {
@@ -226,9 +223,7 @@ function addProductToBasket(price, amount, product_id){
 }
 
 function placeOrder(){
-  //console.log("order placed");
   $.post("/api/order/placeOrder");
-  //$("#shoppingbasketbox-container").empty();
 }
 
 

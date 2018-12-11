@@ -26,9 +26,9 @@ var baseText = `
     <div>
       <p>${inventory} st</p>
       <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button> 
-      `+
+      ` +
           <% if (admin) { %>
-            <button onclick="deleteProduct('${id}')"> remove </button> + 
+            `<button onclick="deleteProduct('${id}')"> remove </button> ` +
           <% } %>
         `
     </div>
