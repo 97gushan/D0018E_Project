@@ -37,13 +37,15 @@ module.exports = {
             res.redirect('/');
         });
 
-    }, loginUser : function(req, res, next,name, pass){
+    }, loginUser : function(req, res, next){
+
+        ses = req.session;
+        var name = req.body.username;
+        var pass = req.body.password;
 
         var sql = "SELECT passwordHash, id, adminFlag FROM user WHERE username = ?";
         var values = [[name]];
-
-
-        ses = req.session;
+        
 
         connection.query(sql, [values], function(err, result){
             if(err) throw err;
