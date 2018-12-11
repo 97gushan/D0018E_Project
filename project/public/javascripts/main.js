@@ -127,29 +127,7 @@ function searchBarHandler(){
 
 }
 
-// Anonymous function to handle adding a product box
-var productwindow = (id, name, description, price, inventory) => {
-  var baseText = `
-  <div id="productWindow" class="pane">
-    <div>
-      <h2>${name}</h2>
-      <div>
-        <div>
-          <p>${description}</p>
-        </div>
-        <p>${price} kr</p>
-      <div class="rateit"> </div>
-      </div>
-      <div>
-        <p>${inventory} st</p>
-        <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button>
-      </div>
 
-    </div>
-  </div> `
-
-return baseText;
-};
 
 
 
@@ -227,6 +205,12 @@ function getProducts() {
     addProducts();
   });
 
+}
+
+//archive product 
+
+function deleteProduct(product_id){
+  $.post("/api/product/delete/" ,{product_id: product_id});
 }
 
 

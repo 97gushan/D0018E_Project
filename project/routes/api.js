@@ -51,7 +51,7 @@ router.get('/product/get/', function(req, res, next) {
 });
 
 /* Delete product from DB */
-router.get('/product/delete/', function(req, res, next) {
+router.post('/product/delete/', function(req, res, next) {
 
 
     DB.deleteProductFromDb(req, res, next);
