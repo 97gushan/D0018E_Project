@@ -30,7 +30,7 @@ $(document).ready(function(){
     });
 
     $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
-    
+
     dim(true);
     getProductReviews(pid.id);
     productWindowOpen = true;
@@ -55,7 +55,7 @@ $(document).ready(function(){
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0 && productWindowOpen)
       {
-          
+
           container.remove();
           setTimeout(() => {
             productWindowOpen = false;
@@ -85,7 +85,7 @@ $(document).ready(function(){
   document.getElementById("defaultOpen").click();
 
 
-  
+
 
 
 });
@@ -95,7 +95,7 @@ function loginUser(){
   var loginForm = document.forms["loginWindow"];
 
   console.log(loginForm["username"].value);
-  
+
 
   $.post("/api/user/login" , {username: loginForm["username"].value, password: loginForm["password"].value} , function(){})
   .done(function(res) {
@@ -131,47 +131,6 @@ function searchBarHandler(){
 
 
 
-// Anonymous function to handle adding a product box
-var productbox = (id, name, description, price, inventory) => {
-  var baseText = `
-  <div class="productbox">
-    <div class="innerbox" id="productBoxnr${id}">
-      <h3>${name}</h3>
-      <div class="productdescription">
-        <p>${description}</p>
-      </div>
-      <div>
-        <h4 style="float:left">${price} kr</h4>
-        <h4 style="float:right">${inventory} st</h4>
-      </div>
-      <div>
-        <p>Click for more info</p> 
-      </div>
-
-    </div>
-  </div> `
-
-return baseText;
-};
-
-// Anonymous function to handle adding a shoppingBasketBox
-var shoppingBasketBox = (name, price, amount) => {
-  var baseText = `
-  <div class="productbox">
-    <div>
-      <h2>${name} </h2>
-      <div>
-        <div>
-          <p>${price} kr</p>
-        </div>
-      <div>
-        <p>${amount} st </p>
-      </div>
-    </div>
-  </div> `
-
-return baseText;
-};
 
 // Product object
 function product(id, name, description, price, inventory){
@@ -207,10 +166,14 @@ function getProducts() {
 
 }
 
-//archive product 
+//archive product
 
 function deleteProduct(product_id){
   $.post("/api/product/delete/" ,{product_id: product_id});
+}
+
+function getReviewsForItem(product_id){
+  
 }
 
 
@@ -286,4 +249,4 @@ function openPage(pageName, elmnt) {
 function dim(bool)
 {
     document.getElementById('dimmer').style.display=(bool?'block':'none');
-}  
+}
