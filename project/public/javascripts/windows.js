@@ -1,6 +1,6 @@
 // Anonymous function to handle adding a product box
 var productwindow = (id, name, description, price, inventory) => {
-    
+
     var delButton = `<button onclick="deleteProduct('${id}')"> remove </button>`;
     
     
