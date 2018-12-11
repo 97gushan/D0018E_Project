@@ -254,6 +254,7 @@ module.exports = {
 
         var wares;
 
+        //console.log("1. Get wares form sb");
         connection.query(sqlGetWares, [value_user], function (err, result) {
             if (err) throw err;
             wares = result;
@@ -264,7 +265,7 @@ module.exports = {
 
                 var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
                 var orderID;
-
+                //console.log("2. create order");
                 // Create a order in the orders table
                 connection.query(sqlCreateOrder, [value_order], function (err, result) {
                     if (err) throw err;
@@ -280,6 +281,7 @@ module.exports = {
                         values_wares.push([ware.price, ware.amount, orderID, ware.product_id]);
                     });
 
+                    //console.log("3. create order items");
                     // Add the wares to the order_item table
                     connection.query(sqlAddWaresToOrder, [values_wares], function (err, result) {
                         if (err) throw err;
@@ -287,9 +289,10 @@ module.exports = {
 
                         // Remove the wares from the shopping basket
                         var sqlRemoveWaresFromBasket = "DELETE FROM shopping_basket WHERE user_id = ?";
+                       // console.log("4. delete from shopping basket");
                         connection.query(sqlRemoveWaresFromBasket, [value_user], function (err, result) {
                             if (err) throw err;
-                            //console.log("wares removed");
+                            console.log("***********wares removed ****************** ");
                             res.sendStatus(200);
                         });
 
@@ -298,10 +301,11 @@ module.exports = {
                         wares.forEach(ware => {
                             values_reduce.push(ware.amount, ware.product_id);
                         });
-
+                        //console.log(wares);
+                        //console.log("5. Reduce inventory");
                         connection.query(sqlReduceInventory, values_reduce, function (err, result) {
                             if (err) throw err;
-                            //console.log("reduced");
+                            console.log("*********** Reduced inventory ****************** ");
                         });
 
                     });
@@ -345,23 +349,41 @@ module.exports = {
     deleteOrder: function (res, req, next) {
 
         var orderID = req.body.orderID;
-        var sqlDeleteOrderItems = "DELETE FROM order_item WHERE order_id = ?";
-        var valueOrder = [
-            [orderID]
-        ];
+        var sqlGetOrderItems = "SELECT product_id, amount FROM order_item WHERE order_id = ?";
+        var valueOrder = [[orderID]];
 
-        connection.query(sqlDeleteOrderItems, [valueOrder], function (err, result) {
-            if (err) throw err;
-
-
-            // TODO revert inventory amount
-
-            var sqlDeleteOrder = "DELETE FROM orders WHERE id = ?";
-            connection.query(sqlDeleteOrder, [valueOrder], function (err, result) {
-                if (err) throw err;
-                res.sendStatus(200);
+        connection.query(sqlGetOrderItems, [valueOrder], function (err, result) {
+            if(err) throw err;
+            
+            //console.log(result);
+            var values_increase = [];
+            result.forEach(ware => {
+                values_increase.push(ware.amount, ware.product_id);
             });
 
-        });
+            var sqlDeleteOrderItems = "DELETE FROM order_item WHERE order_id = ?";
+        
+
+            connection.query(sqlDeleteOrderItems, [valueOrder], function (err, result) {
+                if (err) throw err;
+
+
+                var sqlIncreaseInventory = "UPDATE product SET inventory = inventory + ? WHERE id = ?";
+
+                // When an order is deleted the amount in the inventory gets increased back to
+                // its originall value
+                connection.query(sqlIncreaseInventory, values_increase, function (err, result) {
+                    if (err) throw err;
+                    //console.log("************ Inventory increased ******************");
+                });
+
+                var sqlDeleteOrder = "DELETE FROM orders WHERE id = ?";
+                connection.query(sqlDeleteOrder, [valueOrder], function (err, result) {
+                    if (err) throw err;
+                    res.sendStatus(200);
+                });
+
+            });
+        });   
     }
 };
