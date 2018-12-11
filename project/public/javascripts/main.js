@@ -92,14 +92,10 @@ $(document).ready(function(){
 
 // Login function
 function loginUser(){
-<<<<<<< HEAD
   var loginForm = document.forms["loginWindow"];
 
-  console.log(loginForm["username"].value);
+  //console.log(loginForm["username"].value);
 
-=======
-  var loginForm = document.forms["loginWindow"]; 
->>>>>>> c2a2acf8343745c4964135d3236c1e755abc995a
 
   $.post("/api/user/login" , {username: loginForm["username"].value, password: loginForm["password"].value} , function(){})
   .done(function(res) {
@@ -177,7 +173,7 @@ function deleteProduct(product_id){
 }
 
 function getReviewsForItem(product_id){
-  
+
 }
 
 

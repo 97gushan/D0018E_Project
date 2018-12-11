@@ -25,12 +25,21 @@ var baseText = `
     </div>
     <div>
       <p>${inventory} st</p>
-      <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button> 
+      <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button>
       ` +
           <% if (admin) { %>
             `<button onclick="deleteProduct('${id}')"> remove </button> ` +
           <% } %>
         `
+    </div>
+    <div>
+      <form action='/api/product/addReviewToItem' method="POST">
+        <input type="hidden" name="product_id" value="${id}" >
+        <input type="text" name="comment">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <div id="productWindowReviews">
     </div>
   </div>
 </div> `
