@@ -51,7 +51,7 @@ router.post('/product/add', requireAdmin, function(req, res, next) {
 
 /* Add product to table shopping_basket */
 router.post('/product/addToBasket/', requireLoggedIn, function(req, res, next) {
-    DB.addToShoppingBasket(req, res, next, price, amount, user_id, product_id);
+    DB.addToShoppingBasket(req, res, next);
 });
 
 /* Fetch the shopping basket */
