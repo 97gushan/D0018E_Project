@@ -290,7 +290,7 @@ function openPage(pageName, elmnt) {
   }
 
   // Show the specific tab content
-  document.getElementById(pageName).className = "tabcontent tabshown w3-spin";
+  document.getElementById(pageName).className = "tabcontent";
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = $(document.body).css("background-color");
