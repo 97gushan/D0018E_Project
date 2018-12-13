@@ -134,7 +134,7 @@ module.exports = {
 
         connection.query(sql, function (err, result) {
             if (err) throw err;
-            res.send(202);
+            res.sendStatus(202);
         });
 
     },
@@ -182,7 +182,7 @@ module.exports = {
     /* GET shopping basket FROM DB
        RETURNS A JSON FILE */
     getShoppingBasket: function (req, res, next) {
-        var sql = "SELECT product.name, shopping_basket.price, shopping_basket.amount FROM shopping_basket " +
+        var sql = "SELECT product.id, product.name, shopping_basket.price, shopping_basket.amount FROM shopping_basket " +
             "INNER JOIN product ON product.id=shopping_basket.product_id WHERE user_id = ?";
         var userID = req.session.userID;
         var value = [[userID]];
@@ -192,6 +192,21 @@ module.exports = {
             res.send(result);
         });
 
+    },
+
+    /* Removes a product from the shopping basket */
+    deleteShoppingBasketItem: function (req, res, next) {
+
+        var userID = req.session.userID;
+        var itemID = req.body.itemID;
+
+        var sql = "DELETE FROM shopping_basket WHERE user_id = " + connection.escape(userID) +
+        " AND product_id = " + connection.escape(itemID);
+        
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            res.sendStatus(200);
+        });
     },
 
     /* Get reviews and ratings from database for a specific product */
@@ -248,9 +263,9 @@ module.exports = {
     },
 
     /* Places an order */
-    placeOrder: function (res, userID) {
+    placeOrder: function (req, res, next) {
         var sqlGetWares = "SELECT * FROM shopping_basket WHERE user_id = ?";
-        var value_user = [[userID]];
+        var value_user = [[req.session.userID]];
 
         var wares;
 
@@ -317,7 +332,7 @@ module.exports = {
     },
 
     /* Edit an order */
-    editOrderStatus: function (res, req, next) {
+    editOrderStatus: function (req, res, next) {
 
 
         var status = req.body.status;
@@ -346,7 +361,7 @@ module.exports = {
     },
 
     /* Delete an order */
-    deleteOrder: function (res, req, next) {
+    deleteOrder: function (req, res, next) {
 
         var orderID = req.body.orderID;
         var sqlGetOrderItems = "SELECT product_id, amount FROM order_item WHERE order_id = ?";
@@ -386,4 +401,5 @@ module.exports = {
             });
         });   
     }
+    
 };

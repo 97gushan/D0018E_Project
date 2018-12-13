@@ -23,20 +23,23 @@
   };
 
   // Anonymous function to handle adding a shoppingBasketBox
-  var shoppingBasketBox = (name, price, amount) => {
+  var shoppingBasketBox = (id, name, price, amount) => {
     var baseText = `
-    <div class="productbox">
-      <div>
-        <h2>${name} </h2>
+    <div class="shoppingbasketbox">
+      <div class="innerbox" id="basketBoxnr${id}">
         <div>
+          <h2>${name} </h2>
           <div>
-            <p>${price} kr</p>
+            <div>
+              <p>${price} kr</p>
+            </div>
+          <div>
+            <p>${amount} st </p>
           </div>
-        <div>
-          <p>${amount} st </p>
+          <button onclick="removeItemFromBasket('${id}')"> remove </button> 
         </div>
-      </div>
-    </div> `
+      </div> 
+    </div>`
 
   return baseText;
   };

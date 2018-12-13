@@ -128,10 +128,6 @@ function searchBarHandler(){
 }
 
 
-
-
-
-
 // Product object
 function product(id, name, description, price, inventory){
   this.id = id;
@@ -141,14 +137,8 @@ function product(id, name, description, price, inventory){
   this.inventory = inventory;
 };
 
-function shopping_basket(name, price, amount){
-  this.name = name;
-  this.price = price;
-  this.amount = amount;
-};
 
 var products = [];
-var shoppingbasket = [];
 
 
 // Get the products with the chosen filter
@@ -172,10 +162,6 @@ function deleteProduct(product_id){
   $.post("/api/product/delete/" ,{product_id: product_id});
 }
 
-function getReviewsForItem(product_id){
-
-}
-
 
 function addProducts(){
   $("#productbox-container").empty();
@@ -186,29 +172,6 @@ function addProducts(){
 
 function addProductToBasket(price, amount, product_id){
   $.post("/api/product/addToBasket/" ,{price: price, amount: 1,  product_id: product_id});
-}
-
-function placeOrder(){
-  $.post("/api/order/placeOrder");
-}
-
-
-function getShoppingBasket() {
-  $.getJSON("/api/product/getShoppingBasket", function(jsonfile){
-    shoppingbasket = [];
-    jsonfile.forEach(itemInBasket => {
-      shoppingbasket.push(new shopping_basket(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
-    });
-    addShoppingBasket();
-
-  });
-}
-
-function addShoppingBasket(){
-  $("#shoppingbasketbox-container").empty();
-  shoppingbasket.forEach(itemInBasket => {
-    $("#shoppingbasketbox-container").append(shoppingBasketBox(itemInBasket.name, itemInBasket.price, itemInBasket.amount));
-  })
 }
 
 

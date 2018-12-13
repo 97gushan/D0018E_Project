@@ -59,6 +59,11 @@ router.get('/product/getShoppingBasket', requireLoggedIn, function(req, res, nex
     DB.getShoppingBasket(req, res, next);
 });
 
+/* Remove an item from the shopping basket */
+router.post('/product/deleteShoppingBasketItem', requireLoggedIn, function(req, res, next) {
+    DB.deleteShoppingBasketItem(req, res, next);
+});
+
 /* Add a new review to a product */
 router.post('/product/addReviewToItem', requireLoggedIn, function(req, res, next) {
     DB.addReviewToItem(req, res, next);
@@ -70,7 +75,7 @@ router.post('/product/addReviewToItem', requireLoggedIn, function(req, res, next
 
 /* Place a new order */
 router.post('/order/placeOrder', requireLoggedIn, function(req, res, next){        
-    DB.placeOrder(res, req.session.userID);
+    DB.placeOrder(req, res, next);
 });
 
 /* Get a order */
@@ -80,12 +85,12 @@ router.get('/order/getOrder', requireLoggedIn, function(req, res, next) {
 
 /* Change status of an order */
 router.post('/order/changeStatus', requireAdmin, function(req, res, next) {
-    DB.editOrderStatus(res, req, next);
+    DB.editOrderStatus(req, res, next);
 });
 
 /* Delete a specific order */
 router.post('/order/deleteOrder', requireAdmin,  function(req, res, next) {
-    DB.deleteOrder(res, req, next);
+    DB.deleteOrder(req, res, next);
 });
 
 
