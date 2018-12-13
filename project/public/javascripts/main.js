@@ -84,18 +84,11 @@ $(document).ready(function(){
   // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();
 
-
-
-
-
 });
 
 // Login function
 function loginUser(){
   var loginForm = document.forms["loginWindow"];
-
-  //console.log(loginForm["username"].value);
-
 
   $.post("/api/user/login" , {username: loginForm["username"].value, password: loginForm["password"].value} , function(){})
   .done(function(res) {
