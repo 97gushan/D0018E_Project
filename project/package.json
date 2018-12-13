@@ -5,6 +5,9 @@
   "scripts": {
     "watch": "nodemon ./bin/www"
   },
+  "nodemonConfig" :{
+    "ignore": ["public/*"]
+  },
   "dependencies": {
     "async": "^2.6.1",
     "bcrypt": "^3.0.2",

@@ -10,7 +10,7 @@
   -->
 
 
-<form id="loginWindow" class="pane" action="/api/user/login" method="post" onsubmit=" event.preventDefault(); loginUser();">
+<form id="loginWindow" class="pane" action="/api/user/login" method="POST" onsubmit=" event.preventDefault(); loginUser();">
     <div class="w3-container">
       <% if (autheticated) { %>
         <div>
@@ -31,6 +31,7 @@
       <% }%>
     </div>
 </form>
+
 
 
 <div id="accountPanel">

@@ -81,6 +81,10 @@ module.exports = {
     /* Create a new item */
     addProductToDB: function (req, res, next) {
 
+        if(!req.body.product)
+            return res.sendStatus(400);
+
+            
         var product = req.body.product;
         var price = req.body.price;
         var inventoryAmount = req.body.amount;

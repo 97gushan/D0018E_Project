@@ -256,3 +256,15 @@ h1 {
 .productdescription p{
   text-align: left;
 }
+
+/* -------------------------------------*/
+/* ------------ Admin Panel  -----------*/
+/* -------------------------------------*/
+
+.adminOrderWindow {
+  border: 0.1em solid #6a737d;
+}
+
+.adminAddProductWindow {
+  border: 0.1em solid #6a737d;
+}

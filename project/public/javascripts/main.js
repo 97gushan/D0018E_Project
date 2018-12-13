@@ -63,9 +63,7 @@ $(document).ready(function(){
           }, 20);
       }
 
-
   });
-
 
 
 
@@ -99,6 +97,38 @@ function loginUser(){
     $("#registerbutton").after("<p style='color:red'> Login Failed. Please try again. </p>");
     return false;
   });
+}
+
+
+
+// Add product function
+function createNewProduct(){
+  var productForm = document.forms["createNewProductForm"];
+
+  $.post("/api/product/add" , {product: productForm["product"].value, price: productForm["price"].value, amount: productForm["amount"].value, category: productForm["category"].value, description: productForm["description"].value} , function(){})
+  .done(function(res) {
+    $("#createProductSuccess").show();
+    productForm.reset();
+  })
+  .fail(function(res) {
+    $("#createProductFailed").show();
+    return false;
+  });
+}
+
+// Get the modal
+var prodSuccess = document.getElementById('createProductSuccess');
+var prodFail = document.getElementById('createProductFailed');
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == prodSuccess) {
+    prodSuccess.style.display = "none";
+  }
+  else if (event.target == prodFail) {
+    prodFail.style.display = "none";
+  }
 }
 
 
@@ -152,7 +182,26 @@ function getProducts() {
 //archive product
 
 function deleteProduct(product_id){
-  $.post("/api/product/delete/" ,{product_id: product_id});
+  $.post("/api/product/delete/" ,{product_id: product_id})
+  .done(function(res) {
+
+    for(var i = products.length - 1; i >= 0; i--) {
+        if(products[i].id == product_id) {
+          products.splice(i, 1);
+        }
+    }
+
+    $("#productWindow").remove();
+    setTimeout(() => {
+      productWindowOpen = false;
+      dim(false);
+    }, 20);
+
+    addProducts();
+  })
+  .fail(function(res) {
+    return false;
+  });
 }
 
 

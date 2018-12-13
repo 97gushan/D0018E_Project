@@ -1,21 +1,46 @@
 <div>
-    <!--Form login-->
-   
-    <form action="/api/product/add" method="POST"> <!--hamnar i query. why i dont know. vad händer med submit-->
-    Produkt:<br>
-    <input type="text" name="product" id="product" value=""><br>
-    Price:<br>
-    <input type="text" name="price" id="price" value=""><br>
-    Amount:<br>
-    <input type="text" name="amount" id="amount" value=""><br>
-    Description:<br>
-    <textarea type="text" name="description" id="description" value=""> </textarea><br>
-    <input type="submit" value="submit" />
-    <br>
-    </form> 
 
-    
-    <div id="orderbox-container">
-        <!-- Orders are automaticly displayed here -->
+
+    <div id="createProductSuccess" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+            <header class="w3-container w3-green">
+                <span onclick="document.getElementById('createProductSuccess').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <h2>Product created sucessfully</h2>
+            </header>
+        </div>
+    </div>
+    <div id="createProductFailed" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+            <header class="w3-container w3-red">
+                <span onclick="document.getElementById('createProductFailed').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <h2>Product failed to create</h2>
+            </header>
+        </div>
+    </div>
+
+    <div class="w3-container adminAddProductWindow">
+        <h3> Add Product </h3>
+        <div>
+            <form id="createNewProductForm" action="/api/product/add" method="POST" onsubmit="event.preventDefault(); createNewProduct();">
+                Produkt:<br>
+                <input type="text" name="product" id="product" value=""><br>
+                Price:<br>
+                <input type="number" name="price" id="price" value=""><br>
+                Amount:<br>
+                <input type="number" name="amount" id="amount" value=""><br>
+                Category:<br>
+                <input type="text" name="category" id="category" value=""><br>
+                Description:<br>
+                <textarea type="text" name="description" id="description" value=""> </textarea><br>
+                <input type="submit" value="submit" />
+                <br>
+            </form>
+        </div>
+    </div>
+
+    <div class="w3-container adminOrderWindow">
+        <div id="orderbox-container">
+            <!-- Orders are automaticly displayed here -->
+        </div>
     </div>
 </div>
