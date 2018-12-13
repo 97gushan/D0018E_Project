@@ -77,14 +77,14 @@ module.exports = {
             });
         });
     },
-    
+
     /* Create a new item */
     addProductToDB: function (req, res, next) {
 
         if(!req.body.product)
             return res.sendStatus(400);
 
-            
+
         var product = req.body.product;
         var price = req.body.price;
         var inventoryAmount = req.body.amount;
@@ -142,8 +142,8 @@ module.exports = {
         });
 
     },
-    
-    /* Add item to shopping basket */    
+
+    /* Add item to shopping basket */
     addToShoppingBasket: function (req, res, next) {
 
 
@@ -206,7 +206,7 @@ module.exports = {
 
         var sql = "DELETE FROM shopping_basket WHERE user_id = " + connection.escape(userID) +
         " AND product_id = " + connection.escape(itemID);
-        
+
         connection.query(sql, function (err, result) {
             if (err) throw err;
             res.sendStatus(200);
@@ -280,7 +280,7 @@ module.exports = {
 
             if (wares.length > 0) {
 
-                value_order = [[userID, 0]];
+                value_order = [[value_user, 0]];
 
                 var sqlCreateOrder = "INSERT INTO orders (user_id, status) VALUES ?";
                 var orderID;
@@ -373,7 +373,7 @@ module.exports = {
 
         connection.query(sqlGetOrderItems, [valueOrder], function (err, result) {
             if(err) throw err;
-            
+
             //console.log(result);
             var values_increase = [];
             result.forEach(ware => {
@@ -381,7 +381,7 @@ module.exports = {
             });
 
             var sqlDeleteOrderItems = "DELETE FROM order_item WHERE order_id = ?";
-        
+
 
             connection.query(sqlDeleteOrderItems, [valueOrder], function (err, result) {
                 if (err) throw err;
@@ -403,7 +403,7 @@ module.exports = {
                 });
 
             });
-        });   
+        });
     }
-    
+
 };

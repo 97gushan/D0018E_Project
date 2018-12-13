@@ -18,6 +18,11 @@ function getProductReviews(product_id){
             $.post("/api//product/addReviewToItem/" , {product_id: product_id, rating: value});
          });
     });
+}
+
+function addReviewToItem(product_id) {
+  var comment = document.getElementById('comment').value;
+  $.post("/api//product/addReviewToItem/" , {product_id: product_id, comment: comment});
 
 
 
