@@ -248,8 +248,30 @@ function openPage(pageName, elmnt) {
 }
 
 
-
 function dim(bool)
 {
     document.getElementById('dimmer').style.display=(bool?'block':'none');
 }
+
+
+function getRemovedProducts(){
+  $.getJSON("/api/product/get?query=" + $("#inputname").val() + "&available=0", function(jsonfile) {
+
+    $("#removedProductsContainer").empty();
+
+    jsonfile.forEach(prod => {
+      $("#removedProductsContainer").append(` 
+      <li class="w3-display-container w3-bottombar">
+          ${prod.name} - ${prod.description}
+          <button onclick="" class="w3-display-right">Make Available</button>
+      </li> `);
+
+    });
+  });
+}
+
+
+
+
+
+
