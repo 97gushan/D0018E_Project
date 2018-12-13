@@ -111,10 +111,16 @@ module.exports = {
         // Use SQL wilfcard '%' to get everything that contains
         //      the search string.
         var value = "%" + req.query.query + "%";
+        var available;
+
+        if(req.query.available)
+            available = req.query.available;
+        else
+            available = 1;
 
         // Using LIKE parameter to get wildcards to work, se ref:
         //      https://www.w3schools.com/sql/sql_wildcards.asp
-        var sql = "SELECT * FROM product WHERE name LIKE " + connection.escape(value) + "AND available=1";
+        var sql = "SELECT * FROM product WHERE name LIKE " + connection.escape(value) + "AND available = " + connection.escape(available);
 
         connection.query(sql, function (err, result) {
             if (err) throw err;

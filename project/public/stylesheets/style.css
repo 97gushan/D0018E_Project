@@ -268,3 +268,7 @@ h1 {
 .adminAddProductWindow {
   border: 0.1em solid #6a737d;
 }
+
+#removedProductsWindow {
+  height: 400px;
+}
