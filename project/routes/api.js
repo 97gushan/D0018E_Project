@@ -10,7 +10,7 @@ var DB = require('../Database.js');
 
 /* Add user to DB */
 router.post('/user/add', function(req, res, next) {
-    DB.addUser(req, res, next, hash, 0, 0);
+    DB.addUser(req, res, next);
 });
 
 /* Login user */
@@ -74,7 +74,7 @@ router.post('/product/addReviewToItem', requireLoggedIn, function(req, res, next
 /* ------------------------------------ */
 
 /* Place a new order */
-router.post('/order/placeOrder', requireLoggedIn, function(req, res, next){        
+router.post('/order/placeOrder', requireLoggedIn, function(req, res, next){
     DB.placeOrder(req, res, next);
 });
 

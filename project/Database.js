@@ -23,25 +23,30 @@ module.exports = {
 
 
     /* Create a new user */
-    addUser: function (req, res, next, passHash) {
+    addUser: function (req, res, next) {
 
         var pass = req.body.password;
 
         // Hash password
         bcrypt.hash(pass, 1, function(err, hash){
-        });
+
         var name = req.body.name;
 
         // TODO: fix admin registration
-        var admin = req.body.admin ? 1 : 0;
+        if (req.body.admin == 1)
+          var admin = 1;
+        else {
+          var admin = 0;
+        }
 
         var sql = "INSERT INTO user (username, passwordhash, adminflag, rating) VALUES ?";
-        var values = [[name, passHash, admin, 0]];
+        var values = [[name, hash, admin, 0]];
 
         connection.query(sql, [values], function (err, result) {
             if (err) throw err;
             res.redirect('/');
         });
+          });
 
     },
 
