@@ -19,7 +19,7 @@
     </div>
 
     <div class="w3-container w3-border-bottom w3-cell-row">
-        <div class="w3-container w3-cell">
+        <div class="w3-container w3-third w3-cell">
             <h3> Add Product </h3>
             <div>
                 <form id="createNewProductForm" action="/api/product/add" method="POST" onsubmit="event.preventDefault(); createNewProduct();">
@@ -38,10 +38,13 @@
                 </form>
             </div>
         </div>
-        <div class="w3-container w3-border-left w3-cell">
+        <div class="w3-container w3-twothird w3-border-left w3-cell">
             <h3> Removed products </h3>
-            <button onclick="getRemovedProducts()"> Get removed products </button>
-            <div id="removedProductsWindow">
+            <div class="w3-container">
+                <button onclick="getRemovedProducts()"> Get removed products </button>
+                <p class="w3-right">Restore</p>
+            </div>
+            <div id="removedProductsWindow" class="w3-container">
                 <ul id="removedProductsContainer" class="w3-ul w3-hoverable">
                 </ul>
             </div>

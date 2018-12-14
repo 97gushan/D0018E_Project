@@ -271,4 +271,23 @@ h1 {
 
 #removedProductsWindow {
   height: 400px;
+  overflow: auto;
+}
+
+
+
+/* -------------------------------------*/
+/* -------------- Orders  --------------*/
+/* -------------------------------------*/
+
+.orderbox {
+  min-width: 13em;
+  max-width: 20em;
+  margin: 2vw;
+  padding: 0.5em;
+  padding-top: 0em;
+  border: 0.1em solid #6a737d;
+  border-radius: 1em;
+  background-color: #FFFFFF;
+  color:black;
 }

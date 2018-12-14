@@ -136,11 +136,25 @@ module.exports = {
         // Use SQL wilfcard '%' to get everything that contains
         //      the search string.
         var value = req.body.product_id;
-        console.log(value);
         // Using LIKE parameter to get wildcards to work, se ref:
         //      https://www.w3schools.com/sql/sql_wildcards.asp
 
         var sql = "UPDATE product SET available = 0 WHERE id LIKE " + connection.escape(value);
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            res.sendStatus(202);
+        });
+
+    },
+
+        /* RESTORE PRODUCT FROM DB
+       RETURNS A 202 MESSAGE*/
+       restoreProductFromDb: function (req, res, next) {
+
+        var value = req.body.product_id;
+
+        var sql = "UPDATE product SET available = 1 WHERE id LIKE " + connection.escape(value);
 
         connection.query(sql, function (err, result) {
             if (err) throw err;
