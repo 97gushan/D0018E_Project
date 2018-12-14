@@ -213,6 +213,7 @@ function addProducts(){
 }
 
 function addProductToBasket(price, amount, product_id){
+  console.log("added to basket");
   $.post("/api/product/addToBasket/" ,{price: price, amount: 1,  product_id: product_id});
 }
 

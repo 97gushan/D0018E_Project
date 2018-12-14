@@ -176,22 +176,28 @@ module.exports = {
         var amount = parseInt(req.body.amount);
         var product_id = parseInt(req.body.product_id);
         var user_id = req.session.userID;
+        console.log(user_id + " " + product_id);
 
 
-        var sqlLookupInBasket = "SELECT * FROM shopping_basket WHERE product_id = ?";
-        var value_product = [[product_id]];
+        var sqlLookupInBasket = "SELECT * FROM shopping_basket WHERE product_id = " + 
+                connection.escape(product_id) + " AND user_id = " + connection.escape(user_id);
+
+        console.log(sqlLookupInBasket);
 
         // check if the product exists in a users shoppingbasket
-        connection.query(sqlLookupInBasket, [value_product], function (err, result) {
+        connection.query(sqlLookupInBasket, function (err, result) {
             // if the product does not exist in the shoppingbasket
             // add it
-            if (result.length == 0) {
+
+            console.log(result);
+
+            if (!result || result.length == 0) {
                 var sqlInsertToBasket = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
                 var values = [[price, amount, user_id, product_id]];
 
                 connection.query(sqlInsertToBasket, [values], function (err, result) {
                     if (err) throw err;
-                    res.sendStatus(201);
+                    return res.sendStatus(201);
 
                 });
             } else {
@@ -201,6 +207,7 @@ module.exports = {
 
                 connection.query(sqlReduceInventory, values_increase, function (err, result) {
                     if (err) throw err;
+                    return res.sendStatus(201);
                 });
             }
         });
