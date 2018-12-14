@@ -261,13 +261,25 @@ function getRemovedProducts(){
 
     jsonfile.forEach(prod => {
       $("#removedProductsContainer").append(` 
-      <li class="w3-display-container w3-bottombar">
-          ${prod.name} - ${prod.description}
-          <button onclick="" class="w3-display-right">Make Available</button>
+      <li class="w3-display-container w3-bottombar" id="removedProduct${prod.id}">
+          ${prod.name} &#8209;  <i>${prod.description.substring(0,60)}</i>
+          <button onclick="restoreProducts(${prod.id})" class="w3-display-right w3-button w3-circle w3-green">+</button>
       </li> `);
 
     });
+  })
+}
+
+function restoreProducts(id){
+  $.post("/api/product/restore/" ,{product_id: id})
+  .done(function(res) {
+    $("#removedProduct" + id).remove();
+  })
+  .fail(function(res) {
+    console.log("failed");
+    return false;
   });
+
 }
 
 

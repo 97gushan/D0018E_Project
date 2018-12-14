@@ -11,13 +11,16 @@ var orders = [];
 // Anonymous function to handle adding a shoppingBasketBox
 var orderBox = (id, name, date, status) => {
     var statusText = "";
+    var confirmButton = "";
+
     if(status == 0){
         statusText = "Pending";
     }else if(status == 1){
       statusText = "Confirmed";
+      confirmButton = "disabled"
     }
     var baseText = `
-    <div class="box">
+    <div class="orderbox">
       <div>
         <h3>Order ID: ${id} </h3>
         <h4>User: ${name} </h4>
@@ -30,10 +33,8 @@ var orderBox = (id, name, date, status) => {
           <p>Status: ${statusText}</p>
         </div>
         <div>
-          <button onclick="confirmOrder('${id}')"> Confirm </button>
-          <button onclick="deleteOrder('${id}')"> Delete </button>
-
-
+           <button onclick="confirmOrder('${id}')" ${confirmButton}> Confirm </button>
+           <button onclick="deleteOrder('${id}')"> Delete </button>
         </div>
       </div>
     </div> `

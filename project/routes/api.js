@@ -44,6 +44,11 @@ router.post('/product/delete/', requireAdmin, function(req, res, next) {
     DB.deleteProductFromDb(req, res, next);
 });
 
+/* Restore deleted product from DB */
+router.post('/product/restore/', requireAdmin, function(req, res, next) {
+    DB.restoreProductFromDb(req, res, next);
+});
+
 /* Add product to DB */
 router.post('/product/add', requireAdmin, function(req, res, next) {
     DB.addProductToDB(req, res, next);
