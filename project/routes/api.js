@@ -74,6 +74,11 @@ router.post('/product/addReviewToItem', requireLoggedIn, function(req, res, next
     DB.addReviewToItem(req, res, next);
 });
 
+/* Add product to DB */
+router.post('/product/edit/:id', requireAdmin, function(req, res, next) {
+    DB.editProduct(req, res, next);
+});
+
 /* ------------------------------------ */
 /* ---------- ORDER HANDLING ---------- */
 /* ------------------------------------ */
@@ -116,4 +121,9 @@ function requireLoggedIn(req, res, next){
         res.sendStatus(403);
     else
         next();
+}
+
+function requireSameUser(req, res, next){
+
+    
 }

@@ -1,10 +1,17 @@
-<script src="/javascripts/jquery-3.3.1.min.js"></script>
+<script src="/javascripts/librarys/jquery-3.3.1.min.js"></script>
+<script src="/javascripts/librarys/jquery.jeditable.min.js"></script>
+<script src="/javascripts/librarys/jquery.rateit.min.js"></script>
+
 <script src="/javascripts/main.js"></script>
 <script src="/javascripts/reviews.js"></script>
 <script src="/javascripts/orderHandler.js"></script>
-<script src="/javascripts/jquery.rateit.min.js"></script>
 <script src="/javascripts/windows.js"></script>
 <script src="/javascripts/shoppingbasket.js"></script>
+
+<% if (admin) { %>
+  <script src="/javascripts/adminscripts.js"></script>
+<% } %>
+
 
 
 <script >
@@ -17,16 +24,16 @@ var productwindow = (id, name, description, price, inventory) => {
 var baseText = `
 <div id="productWindow" class="pane">
   <div>
-    <h2>${name}</h2>
+    <h2 id="itemName">${name}</h2>
     <div>
       <div>
-        <p>${description}</p>
+        <p id="itemDescription">${description}</p>
       </div>
-      <p>${price} kr</p>
+      <p id="itemPrice">${price} kr</p>
     <div class="rateit"> </div>
     </div>
     <div>
-      <p>${inventory} st</p>
+      <p id="itemInventory">${inventory} st</p>
       <button onclick="addProductToBasket('${price}','1','${id}')"> Buy </button>
       ` +
           <% if (admin) { %>
@@ -35,6 +42,7 @@ var baseText = `
         `
     </div>
     <div>
+      <h3>Reviews</h3>
       <form action='/api/product/addReviewToItem' method="POST" onsubmit=" event.preventDefault(); addReviewToItem(${id});">
         <input type="hidden" name="product_id" value="${id}" >
         <input type="text" id="comment">

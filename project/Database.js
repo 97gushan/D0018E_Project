@@ -168,6 +168,46 @@ module.exports = {
 
     },
 
+
+     /* Edit a product */
+     editProduct: function (req, res, next) {
+
+        var itemType = req.body.itemType;
+        var value = req.body.value;
+        var productID = req.params.id;
+
+        var queryType = "";
+
+        switch (itemType) {
+            case "itemName":
+                queryType = "name";
+                break;
+
+            case "itemDescription":
+                queryType = "description";
+                break;
+            case "itemPrice":
+                queryType = "price";
+                break;
+            case "itemInventory":
+                queryType = "inventory";
+                break;
+    
+            default:
+                console.log("Whoops, wrong itemType of type: " + itemType);
+                return res.sendStatus(400);
+        }
+
+        var sqlChangeStatus = "UPDATE product SET " + queryType + " = ? WHERE ID = ?";
+
+        var input = [value, productID];
+        connection.query(sqlChangeStatus, input, function (err, response) {
+            if (err) throw err;
+            res.send(value);
+        });
+
+    },
+
     /* Add item to shopping basket */
     addToShoppingBasket: function (req, res, next) {
 

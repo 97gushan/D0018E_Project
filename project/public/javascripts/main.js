@@ -55,8 +55,8 @@ $(document).ready(function(){
       // If the target of the click isn't the container nor a descendant of the container
       if (!container.is(e.target) && container.has(e.target).length === 0 && productWindowOpen)
       {
-
           container.remove();
+          getProducts();
           setTimeout(() => {
             productWindowOpen = false;
             dim(false);
@@ -213,7 +213,6 @@ function addProducts(){
 }
 
 function addProductToBasket(price, amount, product_id){
-  console.log("added to basket");
   $.post("/api/product/addToBasket/" ,{price: price, amount: 1,  product_id: product_id});
 }
 
@@ -275,6 +274,7 @@ function restoreProducts(id){
   $.post("/api/product/restore/" ,{product_id: id})
   .done(function(res) {
     $("#removedProduct" + id).remove();
+    refresh();
   })
   .fail(function(res) {
     console.log("failed");
@@ -282,9 +282,5 @@ function restoreProducts(id){
   });
 
 }
-
-
-
-
 
 
