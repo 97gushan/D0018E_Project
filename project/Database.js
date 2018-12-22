@@ -15,34 +15,6 @@ var connection = mysql.createConnection({
 var ses;
 
 
-
-function dbSelect(table, values){
-
-    var sql = "INSERT INTO " + table + " SET ";
-
-
-}
-
-function dbInsert(){
-    
-}
-
-function dbRemove(){
-    
-}
-
-function dbUpdate(){
-    
-}
-
-
-
-
-
-
-
-
-
 /* Functions in the DB class that is usable by other files */
 module.exports = {
     /*
