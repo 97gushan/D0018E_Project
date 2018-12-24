@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   ses = req.session;
   if(ses.username){
 
-    res.render('index', { Username: ses.username, autheticated: true, admin: ses.adminFlag });
+    res.render('index', { Username: ses.username, UserID: ses.userID, autheticated: true, admin: ses.adminFlag });
 
   }else{
     res.render('index', { Username: "user", autheticated: false, admin: 0 });

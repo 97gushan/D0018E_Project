@@ -35,6 +35,7 @@ var orderBox = (id, name, date, status) => {
         <div>
            <button onclick="confirmOrder('${id}')" ${confirmButton}> Confirm </button>
            <button onclick="deleteOrder('${id}')"> Delete </button>
+           <button onclick="viewOrder('${id}')"> View </button>
         </div>
       </div>
     </div> `
@@ -47,9 +48,9 @@ function confirmOrder(id){
 function deleteOrder(id){
   $.post("/api/order/deleteOrder", {orderID:id});
 }
-
-//    to the website.
-function getOrders() {
+  
+  //    to the website.
+  function getOrders() {
     orders = [];
     $.getJSON("/api/order/getOrder", function(jsonfile) {
         jsonfile.forEach(ord => {
@@ -67,4 +68,3 @@ function getOrders() {
       $("#orderbox-container").append(orderBox(ord.id, ord.name, ord.date, ord.status));
     })
   }
-  

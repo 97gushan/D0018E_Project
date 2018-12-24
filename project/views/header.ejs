@@ -33,7 +33,6 @@
 </form>
 
 
-
 <div id="accountPanel">
   <input type="image" src="/images/def_userimg.png" id="accountButton"/>
 </div>
@@ -54,4 +53,21 @@
   </div>
 </div>
 
+</div>
+
+<% if (autheticated) { %>
+<script>function getUserID(){return <%= UserID %>;}</script>
+<% } %>
+
+
+
+<div id="orderItemModal" class="w3-modal">
+<div class="w3-modal-content w3-animate-top w3-card-4">
+    <header class="w3-container">
+        <span onclick="document.getElementById('orderItemModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <table class="w3-table w3-bordered" id="orderItemModalItemBox">
+        
+        </table>
+    </header>
+</div>
 </div>

@@ -184,18 +184,14 @@ h1 {
   font-size:20pt;
 }
 
-.shoppingbasketbox-container {
-  width: 80vw;
-  margin: 4vh 10vw 0vw 10vw;
-}
-
-#productbox-container {
+.flex-container {
   width: 80vw;
   margin: 4vh 10vw 0vw 10vw;
   display: flex;  
   flex-wrap: wrap;
   justify-content: center;
 }
+
 
 #productWindow {
   position: fixed;

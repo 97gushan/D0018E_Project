@@ -346,6 +346,7 @@ module.exports = {
 
             var userID =  req.session.userID;
 
+            // Excecutes the functions within in order to avoid nesting hell
             async.waterfall([
                 function(callback){
 
@@ -458,14 +459,51 @@ module.exports = {
 
     /* Get selected order */
     getOrders: function (req, res, next) {
-        var sqlGetOrders = "SELECT orders.id, orders.date, orders.status, user.username FROM orders " +
-            "INNER JOIN user ON user.id=orders.user_id";
 
+        
+        if(req.session.adminFlag && !req.params.userID){
+            var sqlGetOrders = "SELECT orders.id, orders.date, orders.status, user.username FROM orders " +
+            "INNER JOIN user ON user.id=orders.user_id";
+        }
+        else if(req.session.adminFlag && req.params.userID){
+            var userID = req.params.userID;
+
+            var sqlGetOrders = "SELECT orders.id, orders.date, orders.status, user.username FROM orders " +
+            "INNER JOIN user ON user.id=orders.user_id WHERE orders.user_id = " + userID;
+        }
+        else{
+            var userID = req.session.userID;
+
+            var sqlGetOrders = "SELECT orders.id, orders.date, orders.status, user.username FROM orders " +
+            "INNER JOIN user ON user.id=orders.user_id WHERE orders.user_id = " + userID;
+        }
+            
 
         connection.query(sqlGetOrders, function (err, result) {
             if (err) throw err;
             res.send(result);
         });
+    },
+
+    getOrderItems: function (req, res, next) {
+        var sql = "SELECT orders.id, orders.status, orders.date, product.name, orders.user_id, order_item.amount, order_item.price " +
+        " FROM ((orders INNER JOIN order_item ON order_item.order_id = orders.id) " +
+        " INNER JOIN product ON product.id=order_item.product_id) WHERE order_id = ?;";
+
+        var orderID = req.params.orderID;
+        var value = [[orderID]];
+
+        connection.query(sql, [value], function (err, result) {
+            if (err) throw err;
+
+            // Last sanity check. Should be in users but i dont want to change the DB tables
+            //          or make a connection there, which would fix it.
+            if(result[0].user_id == req.session.userID || req.session.adminFlag)
+                res.send(result);
+            else
+                res.sendStatus(403);
+        });
+
     },
 
     /* Delete an order */

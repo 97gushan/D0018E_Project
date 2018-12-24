@@ -89,7 +89,7 @@ router.post('/order/placeOrder', requireLoggedIn, function(req, res, next){
 });
 
 /* Get a order */
-router.get('/order/getOrder', requireLoggedIn, function(req, res, next) {
+router.get('/order/getOrder/:userID?', requireLoggedIn, function(req, res, next) {
     DB.getOrders(req, res, next);
 });
 
@@ -123,7 +123,4 @@ function requireLoggedIn(req, res, next){
         next();
 }
 
-function requireSameUser(req, res, next){
 
-    
-}
