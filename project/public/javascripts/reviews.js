@@ -9,7 +9,7 @@ function getProductReviews(product_id){
     $.getJSON("/api/product/getReviewsForItem?query=" + product_id, function(jsonfile) {
         jsonfile.forEach(review => {
             avgRating += review.rating;
-            $("#productWindowReviews").append("<p>" + review.comment + "</p>");
+            $("#productWindowReviews").append("<p>" + review.comment + " " +  review.username +  "</p>");
         });
         avgRating = avgRating / jsonfile.length;
 
@@ -23,7 +23,4 @@ function getProductReviews(product_id){
 function addReviewToItem(product_id) {
   var comment = document.getElementById('comment').value;
   $.post("/api//product/addReviewToItem/" , {product_id: product_id, comment: comment});
-
-
-
 }

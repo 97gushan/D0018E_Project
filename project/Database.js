@@ -291,8 +291,8 @@ module.exports = {
     getReviewsForItem: function (req, res, next) {
 
         var prodID = parseInt(req.query.query);
-
-        var sql = "SELECT rating, comment, user_id FROM review WHERE product_id = ?";
+       var sql =  "SELECT review.rating, review.comment, user.username FROM review " +
+        "INNER JOIN user ON user.id=review.user_id WHERE product_id = ?";
         var value = [[prodID]];
 
         connection.query(sql, [value], function (err, result) {
