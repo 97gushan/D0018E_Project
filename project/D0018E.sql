@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `D0018E`.`product` (
   `description` TEXT NOT NULL,
   `category` VARCHAR(45) NOT NULL,
   `available` TINYINT(1) NOT NULL,
+  `image_path` VARCHAR(1024),
   PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------

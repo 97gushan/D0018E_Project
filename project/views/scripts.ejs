@@ -16,7 +16,7 @@
 
 <script >
     // Anonymous function to handle adding a product box
-var productwindow = (id, name, description, price, inventory) => {
+var productwindow = (id, name, description, price, inventory, image_path) => {
 
 
 
@@ -26,6 +26,9 @@ var baseText = `
   <div>
     <h2 id="itemName">${name}</h2>
     <div>
+    <div id="productImage">
+      <img src=${image_path}>
+    </div>
       <div>
         <p id="itemDescription">${description}</p>
       </div>
@@ -49,6 +52,7 @@ var baseText = `
         <input type="submit" value="Submit">
       </form>
     </div>
+
     <div id="productWindowReviews">
     </div>
   </div>
