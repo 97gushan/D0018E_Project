@@ -205,6 +205,12 @@ h1 {
 
 }
 
+#productImage {
+  float: right;
+  max-width: 60vw;
+  max-height: 60vh;
+}
+
 .innerbox {
   min-width: 13em;
   max-width: 20em;

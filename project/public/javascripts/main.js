@@ -29,13 +29,16 @@ $(document).ready(function(){
         return e;
     });
 
-    $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory));
+    console.log(pid);
+
+    $("#productbox-container").append(productwindow(pid.id, pid.name, pid.description, pid.price, pid.inventory, pid.image_path));
 
     dim(true);
     getProductReviews(pid.id);
     productWindowOpen = true;
 
   });
+
 
 
 
@@ -120,12 +123,13 @@ function searchBarHandler(){
 
 
 // Product object
-function product(id, name, description, price, inventory){
+function product(id, name, description, price, inventory, image_path){
   this.id = id;
   this.name = name;
   this.description = description;
   this.price = price;
   this.inventory = inventory;
+  this.image_path = image_path;
 };
 
 
@@ -140,7 +144,7 @@ function getProducts() {
     products = [];
 
     jsonfile.forEach(prod => {
-      products.push(new product(prod.id, prod.name, prod.description, prod.price, prod.inventory));
+      products.push(new product(prod.id, prod.name, prod.description, prod.price, prod.inventory, prod.image_path));
     });
     addProducts();
   });
@@ -151,7 +155,7 @@ function getProducts() {
 function addProducts(){
   $("#productbox-container").empty();
   products.forEach(prod => {
-    $("#productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price, prod.inventory));
+    $("#productbox-container").append(productbox(prod.id, prod.name , prod.description , prod.price, prod.inventory, prod.image_path));
   })
 }
 
