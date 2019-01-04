@@ -1,21 +1,23 @@
 
   // Anonymous function to handle adding a product box
-  var productbox = (id, name, description, price, inventory) => {
+  var productbox = (id, name, description, price, inventory, image_path) => {
     var baseText = `
     <div class="productbox">
-      <div class="innerbox" id="productBoxnr${id}">
-        <h3>${name}</h3>
-        <div class="productdescription">
-          <p>${description}</p>
-        </div>
-        <div>
-          <h4 style="float:left">${price} kr</h4>
-          <h4 style="float:right">${inventory} st</h4>
-        </div>
-        <div>
-          <p>Click for more info</p>
-        </div>
+      <div class="innerbox" id="productBoxnr${id}" style="background-image: url('${image_path}'); background-size: contain; ">
+        <div style="background: rgba(255, 255, 255, 0.6);">
+          <h3>${name}</h3>
+          <div class="productdescription">
+            <p>${description}</p>
+          </div>
+          <div>
+            <h4 style="float:left">${price} kr</h4>
+            <h4 style="float:right">${inventory} st</h4>
+          </div>
+          <div>
+            <p>Click for more info</p>
+          </div>
 
+        </div>
       </div>
     </div> `
 
