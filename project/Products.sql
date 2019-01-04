@@ -1,4 +1,4 @@
-INSERT INTO product (name, price, inventory, description, category, available, image_path) VALUES ('Spik', 4, 2355, 'Spikar', 'none', 1, '../images/spik');
+INSERT INTO product (name, price, inventory, description, category, available, image_path) VALUES ('Spik', 4, 2355, 'Spikar', 'none', 1, '../images/spik.jpg');
 INSERT INTO product (name, price, inventory, description, category, available) VALUES ('Hammare', 99, 35, 'Slår spikar', 'none', 1);
 INSERT INTO product (name, price, inventory, description, category, available) VALUES ('Såg', 149, 12, 'Sågar trä', 'none', 1);
 INSERT INTO product (name, price, inventory, description, category, available) VALUES ('Arbetsbyxor', 699, 4, 'Fräscha arbetsbyxor i högsta kvalité', 'none', 1);
