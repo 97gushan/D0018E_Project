@@ -9,7 +9,7 @@ function getProductReviews(product_id){
     $.getJSON("/api/product/getReviewsForItem?query=" + product_id, function(jsonfile) {
         jsonfile.forEach(review => {
             avgRating += review.rating;
-            $("#productWindowReviews").append("<p>" + review.comment + " " +  review.username +  "</p>");
+            $("#productWindowReviews").append("<p>" + review.comment + "<i>" +  ' -' + review.username + "</i>" + "</p>");
         });
         avgRating = avgRating / jsonfile.length;
 
