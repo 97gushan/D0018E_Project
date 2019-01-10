@@ -3,7 +3,7 @@
   var productbox = (id, name, description, price, inventory, image_path) => {
     var baseText = `
     <div class="productbox">
-      <div class="innerbox" id="productBoxnr${id}" style="background-image: url('${image_path}'); background-size: contain; ">
+      <div class="innerbox" id="productBoxnr${id}" style="background-image: url('${image_path}'); background-position: center; background-size: cover;">
         <div style="background: rgba(255, 255, 255, 0.6);">
           <h3>${name}</h3>
           <div class="productdescription">
