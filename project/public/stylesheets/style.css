@@ -213,8 +213,8 @@ h1 {
 
 .innerbox {
   min-width: 13em;
-  max-width: 20em;
-  height: 13em;
+  max-width: 20em
+  height: 20em;
   margin: 2vw;
   padding: 0.5em;
   padding-top: 0em;
@@ -246,7 +246,6 @@ h1 {
   text-align: center;
   border-bottom: 0.1em solid white;
   margin: 0px;
-
 }
 
 .productdescription {
