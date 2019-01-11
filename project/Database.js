@@ -219,20 +219,15 @@ module.exports = {
         var amount = parseInt(req.body.amount);
         var product_id = parseInt(req.body.product_id);
         var user_id = req.session.userID;
-        console.log(user_id + " " + product_id);
-
 
         var sqlLookupInBasket = "SELECT * FROM shopping_basket WHERE product_id = " + 
                 connection.escape(product_id) + " AND user_id = " + connection.escape(user_id);
 
-        console.log(sqlLookupInBasket);
 
         // check if the product exists in a users shoppingbasket
         connection.query(sqlLookupInBasket, function (err, result) {
             // if the product does not exist in the shoppingbasket
             // add it
-
-            console.log(result);
 
             if (!result || result.length == 0) {
                 var sqlInsertToBasket = "INSERT INTO shopping_basket (price, amount, user_id, product_id) VALUES ?";
@@ -389,7 +384,6 @@ module.exports = {
                     connection.query(sqlAddWaresToOrder, [wares], function (err, result) {
                         if (err) throw err;
                     
-                        console.log(wares);
                         callback(null, args);
                     });
     
@@ -400,7 +394,6 @@ module.exports = {
                     
                     connection.query(sqlRemoveWaresFromBasket, [userID], function (err, result) {
                         if (err) throw err;
-                        console.log(args);
                         callback(null, args);
                     });                    
                     
@@ -410,17 +403,15 @@ module.exports = {
 
                     // Remove the wares from the shopping basket
                     var sqlReduceInventory = "UPDATE product SET inventory = inventory - ? WHERE id = ?";
-                    var values_reduce = [];
-                    args.forEach(ware => {
-                        values_reduce.push(ware.amount, ware.product_id);
+                    args.forEach(ware => {                        
+
+                        connection.query(sqlReduceInventory, [ware.amount, ware.product_id], function (err, result) {
+                            if (err) throw err;
+                        });
                     });
                     
-                    console.log(values_reduce);
-
-                    connection.query(sqlReduceInventory, values_reduce, function (err, result) {
-                        if (err) throw err;
-                        callback(null);
-                    });
+                    callback(null);              
+                    
                 }
                 ],
                 function(err, results){
@@ -527,7 +518,7 @@ module.exports = {
             
                         var values_increase = [];
                         result.forEach(ware => {
-                            values_increase.push(ware.amount, ware.product_id);
+                            values_increase.push([ware.amount, ware.product_id]);
                         });
 
                         callback(null, values_increase);
@@ -547,12 +538,20 @@ module.exports = {
                 function(wares, callback){
                     var sqlIncreaseInventory = "UPDATE product SET inventory = inventory + ? WHERE id = ?";
 
-                    // When an order is deleted the amount in the inventory gets increased back to
-                    // its originall value
-                    connection.query(sqlIncreaseInventory, wares, function (err, result) {
-                        if (err) throw err;
-                        callback(null)
+                    console.log(wares);
+                    
+                    wares.forEach(pair => {
+
+                        console.log(pair);
+
+                        // When an order is deleted the amount in the inventory gets increased back to
+                        // its originall value
+                        connection.query(sqlIncreaseInventory, [pair[0], pair[1]], function (err, result) {
+                            if (err) throw err;
+                        });
                     });
+                    callback(null)
+                    
                 },
                 function(callback){
                     var sqlDeleteOrder = "DELETE FROM orders WHERE id = ?";
